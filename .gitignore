@@ -58,3 +58,6 @@ target/
 
 # Sphinx Docs
 _build/
+
+# Mac crap
+.DS_Store
