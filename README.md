@@ -16,3 +16,9 @@ Running server to watch changes:
     ```
     ./watch
     ```
+
+Building PDF file:
+
+    ```
+    ./makepdf
+    ```
