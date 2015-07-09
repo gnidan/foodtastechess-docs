@@ -6,7 +6,7 @@ foodtastechess, a web-based multiplayer chess system. These
 requirements are directly related to the functionality, performances,
 constraints, attributes, and interfaces of the system.
 
-foodtastechess is a mutli-player chess game that allows players to
+foodtastechess is a multi-player chess game that allows players to
 create and join games against their friends and enemies.
 
 
