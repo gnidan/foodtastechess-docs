@@ -44,6 +44,7 @@ source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
+requirements_doc = 'requirements/index'
 
 # General information about the project.
 project = u'foodtastechess'
@@ -228,8 +229,10 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'foodtastechess.tex', u'foodtastechess Documentation',
-   u'team food taste', 'manual'),
+    (requirements_doc, 'requirements.tex', u'foodtastechess Requirements',
+     u'team food taste', 'manual'),
+#  (master_doc, 'foodtastechess.tex', u'foodtastechess Documentation',
+#   u'team food taste', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
