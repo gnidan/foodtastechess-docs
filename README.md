@@ -12,5 +12,9 @@ Building container to start:
 
 Running server to watch changes:
 
-
     ./watch
+
+
+Building PDF file:
+
+    ./makepdf

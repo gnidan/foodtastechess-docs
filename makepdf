@@ -1,0 +1,9 @@
+#!/bin/bash
+
+CMD="make latexpdf"
+
+docker run -it --rm  \
+    --name docs-pdf \
+    -v ${PWD}:/doc \
+    -w /doc \
+    sphinx-doc ${CMD}
