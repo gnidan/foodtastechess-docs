@@ -37,5 +37,8 @@ Requirements	Apportioning
 --------------------------
 
 The priority levels for requirements are:
-- 1: High level priority.  These are essential features for the application that must be implemented for the game to be able to function as intended.
-- 2: Optional priority.  These are features that are not essential to the game, however will be implemented if time allows after the high priority level features are completed.
+
+==================== ===================================================
+High level priority  These are essential features for the application that must be implemented for the game to be able to function as intended
+Optional priority    These are features that are not essential to the game, however will be implemented if time allows after the high priority level features are completed
+==================== ===================================================
