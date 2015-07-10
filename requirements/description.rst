@@ -4,7 +4,7 @@ Description
 Product Perspective
 -------------------
 
-Foodtastechess is a web application that is used to play chess.  It will allow a user to play simultaneous games of chess against other remote human players.
+**foodtastechess** is a web application that is used to play chess.  It will allow a user to play simultaneous games of chess against other remote human players.
 
 
 Web User Interface
