@@ -82,6 +82,19 @@ Post-Condition
   their turn.
 
 
+Return to Lobby Flow
+--------------------
+
+Precondition
+~~~~~~~~~~~~
+
+Main Flow
+~~~~~~~~~
+
+Post-Condition
+~~~~~~~~~~~~~~
+
+
 Make Move Flow
 --------------
 
@@ -157,3 +170,75 @@ Post-Condition
 
 - The piece is in its original location.
 - The *turn marker label* still reads "YOUR TURN."
+
+
+Resignation Flow
+----------------
+
+Precondition
+~~~~~~~~~~~~
+
+Main Flow
+~~~~~~~~~
+
+Post-Condition
+~~~~~~~~~~~~~~
+
+
+Offer Draw Flow
+---------------
+
+Precondition
+~~~~~~~~~~~~
+
+Main Flow
+~~~~~~~~~
+
+Post-Condition
+~~~~~~~~~~~~~~
+
+
+Replay Moves Flow
+-----------------
+
+Precondition
+~~~~~~~~~~~~
+
+- The user is in the *In-Game screen*.
+- The user wishes to review the moves made in the game from either the
+  beginning or from another point in the game history.
+
+Main Flow
+~~~~~~~~~
+
+The *Replay Moves Flow*, rather than being a prescribed set of actions, is
+instead a user interaction flow based on the user pressing *history
+navigation buttons* any number of times and observing the result after each
+press.
+
+There are four (4) buttons:
+
+    - **Rewind Fully**: This button rewinds the game back to the start,
+      before any moves have been made by either player.
+    - **Step Back 1**: This button rewinds the game a single move, as
+      defined by one player making a single piece move.
+    - **Step Forward 1**: This button forwards the game a single move,
+      according to the same definition.
+    - **Skip to Most Recent**: This button forwards the game to the most
+      recent move made.
+
+The flow is considered to have ended when the user has returned to the most
+recent move, either by navigating one move at a time, or by clicking the
+**Skip to Most Recent** button.
+
+
+Post-Condition
+~~~~~~~~~~~~~~
+
+- After each button press, the system state should reflect the game at that
+  point in its move history.
+- If the game cannot move forward or backward because the state is at the
+  start or end, the corresponding buttons should be disabled.
+- If the game state is not on the most recent move, the system should
+  signify how to exit the flow by highlighting the **Skip to Most Recent**
+  button.
