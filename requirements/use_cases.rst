@@ -6,12 +6,10 @@ Login Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user visits the site for the first time in a new browser.
 
 Main Flow
 ~~~~~~~~~
-
 1. The system presents the user with a button to login using their
    Google Account
 2. The user clicks the login button and is taken to Google's site
@@ -23,7 +21,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The user is logged in to the application.
 
 
@@ -32,19 +29,16 @@ Return to Game Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user is in the *Lobby screen*.
 
 Main Flow
 ~~~~~~~~~
-
 1. The system presents a list of games the user is playing
    or has played in.
 2. The user clicks a row for a particular game.
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The user is in the *In-Game screen* for the selected game.
 
 
@@ -53,13 +47,11 @@ Create Game Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user has logged in.
 - The user is viewing the *Lobby screen*
 
 Main Flow
 ~~~~~~~~~
-
 1. The system presents a "Create New Game" button.
 2. The user clicks the "Create New Game" button.
 3. The system presents a modal popup with a screen with game options.
@@ -72,7 +64,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The user sees the game screen and may begin playing, provided it is
   their turn.
 
@@ -82,14 +73,12 @@ Join Game Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user has been given a *game invite URL*.
 - The user opens the URL in a web browser.
 - If necessary, the user logs in following the `Login Flow`_.
 
 Main Flow
 ~~~~~~~~~
-
 1. The system presents the user with a modal popup confirmation dialog
    presenting the game options. The dialog includes a button labeled
    "Start Game."
@@ -98,7 +87,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The user sees the game screen and may begin playing, provided it is
   their turn.
 
@@ -108,17 +96,14 @@ Return to Lobby Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user is in the *In-Game screen*.
 
 Main Flow
 ~~~~~~~~~
-
 - The user finds and clicks the *Return to Lobby* button.
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The user is in the *Lobby screen*.
 
 
@@ -130,7 +115,6 @@ in one of the `Scenarios`_ listed.
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user is in the *In-Game screen*.
 - It is the user's turn in the game presented: the *turn marker label*
   reads "YOUR TURN."
@@ -169,7 +153,6 @@ Click and Drag Method
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The piece is in the selected new location.
 - The *turn marker label* reads "*[opponent's name]*'S TURN."
 
@@ -218,13 +201,11 @@ Invalid Move Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user has followed the `Make Move Flow`_ using either method
   up to step 2.
 
 Main Flow
 ~~~~~~~~~
-
 1. (a) In the case of the *Click Twice method,* the user clicks a
        non-highlighted square.
    (b) In the case of the *Click and Drag method,* the user releases the
@@ -234,7 +215,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The piece is in its original location.
 - The *turn marker label* still reads "YOUR TURN."
 
@@ -244,14 +224,12 @@ Concession Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user an unfortunate and/or dire situation and cannot honorably
   continue to play.
 - The user is in the *In-Game screen*.
 
 Main Flow
 ~~~~~~~~~
-
 1. The user finds and clicks the *Concede* button.
 2. The system presents a modal popup confirmation dialog asking the user
    if they are certain that they wish to concede. The system presents
@@ -264,7 +242,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The system presents a modal popup informing the user of their loss.
 - After dismissing the modal, the system presents the board in its final
   state for reviewing.
@@ -276,14 +253,12 @@ Offer Draw Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user is in the *In-Game screen*.
 - The user believes the game to be unwinnable by either player, or
   otherwise just wishes to offer a draw.
 
 Main Flow
 ~~~~~~~~~
-
 1. The user finds and clicks the *Offer a Draw* button.
 2. The system presents a modal popup confirmation dialog asking the user
    if they are certain that they wish to offer a draw. The system presents
@@ -296,7 +271,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The modal is dismissed.
 - The *turn marker label* reads "Draw Offered."
 
@@ -306,13 +280,11 @@ Accept Draw Flaw
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user is in the *In-Game screen*.
 - The user's opponent has offered a draw.
 
 Main Flow
 ~~~~~~~~~
-
 1. The system presents a modal popup informing the user of their opponent's
    offer. The system presents two buttons in the modal:
 
@@ -323,7 +295,6 @@ Main Flow
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - The game is over.
 - The *turn marker label* reads "STALEMATE."
 
@@ -333,14 +304,12 @@ Replay Moves Flow
 
 Precondition
 ~~~~~~~~~~~~
-
 - The user is in the *In-Game screen*.
 - The user wishes to review the moves made in the game from either the
   beginning or from another point in the game history.
 
 Main Flow
 ~~~~~~~~~
-
 The *Replay Moves Flow*, rather than being a prescribed set of actions, is
 instead a user interaction flow based on the user pressing *history
 navigation buttons* any number of times and observing the result after each
@@ -364,7 +333,6 @@ recent move, either by navigating one move at a time, or by clicking the
 
 Post-Condition
 ~~~~~~~~~~~~~~
-
 - After each button press, the system state should reflect the game at that
   point in its move history.
 - If the game cannot move forward or backward because the state is at the
