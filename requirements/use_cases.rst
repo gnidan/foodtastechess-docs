@@ -145,8 +145,7 @@ Precondition
 Main Flow
 ~~~~~~~~~
 
-1.
-   (a) In the case of the *Click Twice method,* the user clicks a
+1. (a) In the case of the *Click Twice method,* the user clicks a
        non-highlighted square.
    (b) In the case of the *Click and Drag method,* the user releases the
        mouse on a non-highlighted square.
