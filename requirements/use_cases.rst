@@ -27,6 +27,27 @@ Post-Condition
 - The user is logged in to the application.
 
 
+Return to Game Flow
+-------------------
+
+Precondition
+~~~~~~~~~~~~
+
+- The user is in the *Lobby screen*.
+
+Main Flow
+~~~~~~~~~
+
+1. The system presents a list of games the user is playing
+   or has played in.
+2. The user clicks a row for a particular game.
+
+Post-Condition
+~~~~~~~~~~~~~~
+
+- The user is in the *In-Game screen* for the selected game.
+
+
 Create Game Flow
 ----------------
 
@@ -72,7 +93,7 @@ Main Flow
 1. The system presents the user with a modal popup confirmation dialog
    presenting the game options. The dialog includes a button labeled
    "Start Game."
-2. The user accepts the options and presses the button.
+2. The user accepts the options and clicks the button.
 3. The system brings the user to the *In-Game screen*.
 
 Post-Condition
@@ -88,15 +109,24 @@ Return to Lobby Flow
 Precondition
 ~~~~~~~~~~~~
 
+- The user is in the *In-Game screen*.
+
 Main Flow
 ~~~~~~~~~
+
+- The user finds and clicks the *Return to Lobby* button.
 
 Post-Condition
 ~~~~~~~~~~~~~~
 
+- The user is in the *Lobby screen*.
+
 
 Make Move Flow
 --------------
+
+The *Make Move Flow* comprises the user making a valid move, possible resulting
+in one of the `Scenarios`_ listed.
 
 Precondition
 ~~~~~~~~~~~~
@@ -110,7 +140,6 @@ Main Flow
 
 Click Twice Method
 ``````````````````
-
 1. The user clicks a piece.
 2. The system highlights the valid squares where the piece may move.
 3. The user clicks one of the highlighted squares.
@@ -124,7 +153,6 @@ Click Twice Method
 
 Click and Drag Method
 `````````````````````
-
 1. The user presses the mouse button on a piece without releasing it.
    (**Click and Drag** gesture)
 2. The system highlights the valid squares where the piece may move.
@@ -144,6 +172,45 @@ Post-Condition
 
 - The piece is in the selected new location.
 - The *turn marker label* reads "*[opponent's name]*'S TURN."
+
+Scenarios
+~~~~~~~~~
+
+Capture
+```````
+Precondition
+    The user has made a move that results in a piece moving to a square
+    occupied by their opponent's piece.
+Post-condition
+    The user's piece is in that square.  The opponent's piece is not
+    and instead appears in the *captured pieces display*.
+
+Check
+`````
+Precondition
+    The user has moved a piece so that it is in capturing range of their
+    opponent's King.
+Postcondition
+    Upon the user's opponent viewing the *In-Game screen*, the system will
+    present a modal popup to that opponent reading "CHECK"
+
+Checkmate
+`````````
+Precondition
+    The user has made a move so that the state of the game is Checkmate for
+    their opponent.
+Postcondition
+    The system presents a modal popup informing the user of their Victory,
+    and the *turn marker label* reads "YOU WON" upon dismissal of the modal.
+
+Pawn Promotion
+``````````````
+Precondition
+    The user has made a move bringing a Pawn to the opposing rank of the
+    board
+Postcondition
+    The system changes that Pawn to a Queen belonging to the user in its
+    new location.
 
 
 Invalid Move Flow
@@ -172,17 +239,36 @@ Post-Condition
 - The *turn marker label* still reads "YOUR TURN."
 
 
-Resignation Flow
-----------------
+Concession Flow
+---------------
 
 Precondition
 ~~~~~~~~~~~~
 
+- The user an unfortunate and/or dire situation and cannot honorably
+  continue to play.
+- The user is in the *In-Game screen*.
+
 Main Flow
 ~~~~~~~~~
 
+1. The user finds and clicks the *Concede* button.
+2. The system presents a modal popup confirmation dialog asking the user
+   if they are certain that they wish to concede. The system presents
+   two buttons in the modal:
+
+   - A *Cancel* button
+   - A *Concede* button
+
+3. The user clicks the **Concede** button.
+
 Post-Condition
 ~~~~~~~~~~~~~~
+
+- The system presents a modal popup informing the user of their loss.
+- After dismissing the modal, the system presents the board in its final
+  state for reviewing.
+- The *turn marker label* reads "*[opponent's name]* WON"
 
 
 Offer Draw Flow
@@ -191,11 +277,55 @@ Offer Draw Flow
 Precondition
 ~~~~~~~~~~~~
 
+- The user is in the *In-Game screen*.
+- The user believes the game to be unwinnable by either player, or
+  otherwise just wishes to offer a draw.
+
 Main Flow
 ~~~~~~~~~
 
+1. The user finds and clicks the *Offer a Draw* button.
+2. The system presents a modal popup confirmation dialog asking the user
+   if they are certain that they wish to offer a draw. The system presents
+   two buttons in the modal:
+
+   - A *Cancel* button
+   - An *Offer a Draw* button
+
+3. The user clicks the **Offer a Draw** button.
+
 Post-Condition
 ~~~~~~~~~~~~~~
+
+- The modal is dismissed.
+- The *turn marker label* reads "Draw Offered."
+
+
+Accept Draw Flaw
+----------------
+
+Precondition
+~~~~~~~~~~~~
+
+- The user is in the *In-Game screen*.
+- The user's opponent has offered a draw.
+
+Main Flow
+~~~~~~~~~
+
+1. The system presents a modal popup informing the user of their opponent's
+   offer. The system presents two buttons in the modal:
+
+   - A *Cancel* button
+   - An *Accept Draw* button
+
+2. The user clicks the *Accept Draw* button.
+
+Post-Condition
+~~~~~~~~~~~~~~
+
+- The game is over.
+- The *turn marker label* reads "STALEMATE."
 
 
 Replay Moves Flow
