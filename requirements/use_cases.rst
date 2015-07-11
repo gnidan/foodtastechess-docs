@@ -24,8 +24,8 @@ Post-Condition
 - The user is logged in to the application.
 
 
-Return to Game Flow
--------------------
+Resume Game Flow
+----------------
 
 Precondition
 ~~~~~~~~~~~~
