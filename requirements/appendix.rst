@@ -9,6 +9,9 @@ Glossary
     logged in. It shows a list of games they are participating in, as well
     as options to review old games and to start a new game.
 
+*New Game Screen*
+    The screen that allows the user to initialize a new game instance.
+
 *In-Game screen*
     The system screen that shows a single game currently in progress.
 
