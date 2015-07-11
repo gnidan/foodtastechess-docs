@@ -112,8 +112,8 @@ Click Twice Method
 Click and Drag Method
 `````````````````````
 
-1. The user presses the mouse button on a piece without unpressing
-   the mouse button. (**Click and Drag** gesture)
+1. The user presses the mouse button on a piece without releasing it.
+   (**Click and Drag** gesture)
 2. The system highlights the valid squares where the piece may move.
 3. The user moves the mouse to the valid square.
 4. The system presents the piece moving along with the mouse cursor.
