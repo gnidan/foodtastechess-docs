@@ -218,7 +218,19 @@ latex_elements = {
 #'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': r"""
+\makeatletter
+  \fancypagestyle{normal}{
+    \fancyhf{}
+    \fancyfoot[LE,RO]{{\py@HeaderFamily\thepage}}
+    \fancyfoot[LO]{{\py@HeaderFamily\nouppercase{\rightmark}}}
+    \fancyfoot[RE]{{\py@HeaderFamily\nouppercase{\leftmark}}}
+    \fancyhead[LE,RO]{{\py@HeaderFamily \@title}}
+    \renewcommand{\chaptermark}[1]{\markright{\thechapter.\ ##1}}
+    \renewcommand{\sectionmark}[1]{}
+  }
+\makeatother
+""",
 
 # Latex figure (float) alignment
 #'figure_align': 'htbp',
