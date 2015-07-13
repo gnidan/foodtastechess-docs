@@ -4,7 +4,7 @@ Specific Requirements
 Functional Requirements
 -----------------------
 
-Web Application
+Client Application
 ~~~~~~~~~~~~~~~
 
 Login Screen
@@ -77,3 +77,45 @@ In-Game Screen
 - The application provides a button that allows the user to offer a draw to their opponent.
 - The application provides a button that allows the user to return to the Lobby Screen.
 
+Server Application
+~~~~~~~~~~~~~~~~
+
+Recieving of moves
+```````````````````````````
+- Server must take in multiple moves per second from a variety of games
+- Server must respond with the updated game state after a valid move
+- The game state will be accompanied by all valid moves that the client may make
+- Invalid games are not kept in memory, but instead recreated with each request
+- The input and output must be in JSON
+- Moves must be made by the same two Google authenticated accounts throughout the game on their respective sides
+
+Validation of Moves
+```````````````````
+- The server will calculate all valid moves for a given game board and send them to the client
+- The server must calculate the moves in accordance with the FIDE
+- The server must properly account for special rules including, but not limited to:
+    - En Passant
+    - Castling
+    - Promotion
+    - Threefold repetition
+    - Additionial rules may be found at: https://www.fide.com/component/handbook/?id=124&view=article
+- The client may not make any moves not given by the server
+
+Recording of Moves
+``````````````````
+- Upon receiving a prospective move, the server must lock the game until the move has been recorded and the clients have been updated
+- If a game is locked, the queue will ignore any subsequent moves for the game
+- The server will send changes in game state to the database to record
+
+
+Database Application
+~~~~~~~~~~~~~~~~~~~~
+Recording of moves
+``````````````````
+- The database will accept moves that have been approved the server
+- The database will record the move history along with the all board states using Edward's Notation
+
+Retrieving State
+````````````````
+- After a write, the database will return to the server the complete board state list and the move list
+- After a crash, the database will retrieve the last known state
