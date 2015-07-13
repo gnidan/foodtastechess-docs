@@ -10,7 +10,17 @@ Product Perspective
 Web User Interface
 ------------------
 
-The web application will have an interface where users will be able to log in and see their active chess games, if any exist.  On this screen, options such as choosing a preferred color may be toggled.  From there, the user will be able to select a game to enter and view the game board.  In a game where it is currently their move, they have the option of taking their turn by moving a piece by either clicking on their piece and then clicking on a valid place to move to, or by dragging the piece there.
+- Users will be able to log in and view their active chess games, if any exist 
+- Users will be able to change their account settings
+  - Such as preferred piece color
+- The user will be able to select a game to continue or view
+- Provided it is currently their move, they will have the option of taking their turn 
+  - Available to user is:
+      - Moving a piece by clicking on their piece and then clicking on a valid place to move to
+      - Moving a piece by clicking on their piece and then dragging the piece there.
+      - Offering a draw
+      - Deferring their turn until they are ready to play
+      - Resigning from the game
 
 
 Product Functions
@@ -40,5 +50,10 @@ The priority levels for requirements are:
 
 ==================== ===================================================
 High level priority  These are essential features for the application that must be implemented for the game to be able to function as intended
+  - Client Feature Complete
+  - Server Feature Complete
+  - Database Feature Complete
 Optional priority    These are features that are not essential to the game, however will be implemented if time allows after the high priority level features are completed
+  - Colorblind mode
+  - Multiple servers for one role
 ==================== ===================================================
