@@ -49,7 +49,7 @@ requirements_doc = 'requirements/index'
 # General information about the project.
 project = u'foodtastechess'
 copyright = u'2015, team food taste'
-author = u'team food taste'
+author = ur"G.~ Nicholas D'Andrea \and Devin McGinty \and Zach Pepsin \and Jacob Smith"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -244,7 +244,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (requirements_doc, 'requirements.tex', u'foodtastechess Requirements',
-     u'team food taste', 'manual'),
+     author, 'manual'),
 #  (master_doc, 'foodtastechess.tex', u'foodtastechess Documentation',
 #   u'team food taste', 'manual'),
 ]
