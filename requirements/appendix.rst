@@ -21,3 +21,8 @@ Glossary
 *Turn marker label*
     A UI label displaying whether it is the user's turn or their opponents.
 
+*Forsyth–Edwards Notation*
+    A notation to fully encompass the state of the game board
+    Example:
+        rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 is the starting position in chess
+
