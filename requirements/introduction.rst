@@ -33,6 +33,12 @@ for the developers, testers, and stakeholders of the application.
 Document Version
 ----------------
 
++------------------------------------------------------+
+| **Current Document Version (Revision Control Ref.)** |
++======================================================+
+| .. program-output:: git describe --tags --always     |
++------------------------------------------------------+
+
 Document Development History
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
