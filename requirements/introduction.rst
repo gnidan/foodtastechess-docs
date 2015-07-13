@@ -28,3 +28,13 @@ Scope
 The document contains the criteria by which the **foodtastechess**
 release will be assessed for quality and completeness. It is written
 for the developers, testers, and stakeholders of the application.
+
+
+Document Version
+----------------
+
+Document Development History
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. git_changelog::
+    :revisions: 5
