@@ -48,6 +48,10 @@ In-Game Screen
     - Once a game instance has been completed the game's state will enter one of complete-won, complete-loss, or complete-draw.
     - A user can not interact with the game board if the game is in any complete state.
 - If the opponent transfers control of the game to the user (either by making a move or offering a draw) the user regains control of the game board.
+- If the opponent offers a draw the application will display a modal dialogue asking if the user wants to accept the draw.
+    - The user may accept the draw, which will set the game's state to complete-draw.
+    - Otherwise, the user decline the draw offer, which will close the dialogue.
+- The application will inform the player if the opponent does not accept a user's offer for a draw.
 - If the application finds that the game is in a state of completion at any time it will inform the user of the final game state.
 - The application displays a banner informing a user if it is the user's move or the opponent's move.
 - The application displays all captured pieces, divided by color.
@@ -63,8 +67,13 @@ In-Game Screen
 - The application provides a scrollable window that displays the game's moves in chess algebraic notation.
     - The user may select any move from this window. This will put the game in tracking mode and will display the game in the tracking state corresponding to the move that the user selected.
 - The application provides a button that toggles manual move confirmation (on by default).
+    - The button will indicate wether manual move confirmation is activated using a check box.
 - The application provides a button that toggles highlighting valid moves (on by default).
+    - The button will indicate wether manual move confirmation is activated using a check box.
 - The application provides a button that allows the user to concede the game.
+    - If the user selects this button the application will present a modal dialogue requesting the user to confirm their selection.
+        - The user may accept the concession at this dialogue, which will set the game's state to complete-loss.
+        - Otherwise, not confirming at this dialogue will close the modal dialogue.
 - The application provides a button that allows the user to offer a draw to their opponent.
 - The application provides a button that allows the user to return to the Lobby Screen.
 
