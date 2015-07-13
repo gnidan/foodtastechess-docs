@@ -33,6 +33,7 @@ smmap==0.9.0
 snowballstemmer==1.2.0
 sphinx-autobuild==0.5.2
 sphinx-bootstrap-theme==0.4.7
+sphinx-git==9
 sphinx-rtd-theme==0.1.8
 sphinxcontrib-plantuml==0.5
 sphinxcontrib-programoutput==0.8
