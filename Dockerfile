@@ -11,7 +11,6 @@ RUN   pip install sphinx_rtd_theme
 RUN   pip install alabaster
 RUN   pip install sphinx_bootstrap_theme
 RUN   pip install sphinx-autobuild
-RUN   pip install sphinx-git
 RUN   pip install sphinxcontrib-programoutput
 
 CMD ["/bin/bash"]

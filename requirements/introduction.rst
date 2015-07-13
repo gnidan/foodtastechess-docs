@@ -38,9 +38,3 @@ Document Version
 +======================================================+
 | .. program-output:: git describe --tags --always     |
 +------------------------------------------------------+
-
-Document Development History
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. git_changelog::
-    :revisions: 5
