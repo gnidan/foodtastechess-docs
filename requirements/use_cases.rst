@@ -224,7 +224,7 @@ Concession Flow
 
 Precondition
 ~~~~~~~~~~~~
-- The user an unfortunate and/or dire situation and cannot honorably
+- The user is in an unfortunate and/or dire situation and cannot honorably
   continue to play.
 - The user is in the *In-Game screen*.
 
