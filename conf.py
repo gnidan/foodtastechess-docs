@@ -26,10 +26,15 @@ import shlex
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+plantuml = 'java -jar {}'.format(os.environ['PLANTUML_JAR'])
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx_git', 'sphinxcontrib.programoutput']
+extensions = [
+    'sphinx_git', 'sphinxcontrib.programoutput', 'sphinx.ext.graphviz',
+    'sphinxcontrib.plantuml',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
