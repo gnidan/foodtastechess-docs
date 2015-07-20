@@ -23,6 +23,9 @@ RUN   gem install rack
 RUN   gem install guard
 RUN   gem install guard-rack
 RUN   gem install guard-shell
+RUN   gem install guard-livereload
+RUN   gem install rack-livereload
+
 
 RUN wget http://garr.dl.sourceforge.net/project/plantuml/plantuml.jar -O /opt/plantuml.jar
 ENV PLANTUML_JAR /opt/plantuml.jar

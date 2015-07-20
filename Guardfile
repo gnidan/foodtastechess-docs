@@ -1,9 +1,11 @@
 notification :off
 
 PORT = ENV['PORT'] || 5500
+RELOAD_PORT = ENV['RELOAD_PORT'] || 35729
+
 
 guard 'rack', :port => PORT do
-  watch /_build\/html\/.*/
+  watch 'config.ru'
 end
 
 
@@ -18,3 +20,7 @@ guard :shell do
 end
 
 `make html`
+
+guard 'livereload', :port => RELOAD_PORT do
+  watch /_build\/html\/.+\.(css|js|html)/
+end
