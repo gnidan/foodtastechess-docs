@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PORT=8181
+PORT=5500
 CMD="guard -i -p"
 
 docker run -it --rm  \
-    --name docs \
+    --name sphinx-doc-server \
     -e "PORT=${PORT}" \
     -p ${PORT}:${PORT} \
     -v ${PWD}:/doc \
