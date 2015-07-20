@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    requirements/index
+   guide/index
 
 
 
