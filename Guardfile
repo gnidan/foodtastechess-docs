@@ -1,6 +1,8 @@
 notification :off
 
-guard 'rack', :port => 5500 do
+PORT = ENV['PORT'] || 5500
+
+guard 'rack', :port => PORT do
   watch /_build\/html\/.*/
 end
 

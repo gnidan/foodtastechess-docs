@@ -1,10 +1,11 @@
 #!/bin/bash
 
-PORT=5500
+PORT=8181
 CMD="guard -i -p"
 
 docker run -it --rm  \
     --name docs \
+    -e "PORT=${PORT}" \
     -p ${PORT}:${PORT} \
     -v ${PWD}:/doc \
     -w /doc \
