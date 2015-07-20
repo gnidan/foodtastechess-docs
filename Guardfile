@@ -1,4 +1,3 @@
-interactor :coolline
 notification :off
 
 guard 'rack', :port => 5500 do

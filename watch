@@ -1,10 +1,11 @@
 #!/bin/bash
 
-PORT=8181
-CMD="sphinx-autobuild /doc /doc/_build/html -p ${PORT} -H 0.0.0.0"
+PORT=5500
+CMD="guard -i -p"
 
 docker run -it --rm  \
     --name docs \
     -p ${PORT}:${PORT} \
     -v ${PWD}:/doc \
+    -w /doc \
     sphinx-doc ${CMD}
