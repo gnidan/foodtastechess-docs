@@ -50,6 +50,7 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 requirements_doc = 'requirements/index'
+design_doc = 'design/index'
 guide_doc = 'guide/index'
 
 # General information about the project.
@@ -250,6 +251,8 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (requirements_doc, 'requirements.tex', u'foodtastechess Requirements',
+     author, 'manual'),
+    (design_doc, 'design.tex', u'foodtastechess Software Design',
      author, 'manual'),
     (guide_doc, 'docs_guide.tex', u'foodtastechess Docs Writing Guide',
      author, 'manual'),
