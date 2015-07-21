@@ -116,7 +116,7 @@ Main Application Architecture
     database UsersDB
     UserService - UsersDB
 
-    QueryService .right.> User
+    QueryService .right.> User : includes
 
     package "Games Management" {
         interface "Event Aggregation" as EventAggregation
