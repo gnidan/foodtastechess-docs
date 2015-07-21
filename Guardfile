@@ -11,10 +11,14 @@ end
 
 guard :shell do
   watch /.*\.rst/ do |m|
-    `make html`
+    msg_begin = "#{m[0]} changed, rebuilding..."
+    n msg_begin, 'Sphinx'
 
-    msg = "#{m[0]} changed, rebuilt."
-    n msg, 'Sphinx'
+    `make html`
+    `make latexpdf`
+
+    msg_success = "#{m[0]} changed, rebuilt."
+    n msg_success, 'Sphinx'
     "-> #{msg}"
   end
 end
