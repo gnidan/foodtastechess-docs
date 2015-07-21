@@ -28,6 +28,7 @@ import shlex
 
 plantuml = 'java -jar {}'.format(os.environ['PLANTUML_JAR'])
 plantuml_latex_output_format = 'pdf'
+plantuml_output_format = 'png'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
