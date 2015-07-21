@@ -22,5 +22,5 @@ end
 `make html`
 
 guard 'livereload', :port => RELOAD_PORT do
-  watch /_build\/html\/.+\.(css|js|html)/
+  watch /_build\/html\/.+\.(css|js|html|png)/
 end
