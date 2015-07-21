@@ -90,21 +90,21 @@ Main Application Architecture
     }
     package "Commands" {
         interface "Command Validation" as CommandValidation
-        interface "Command Processing" as CommandProcessing
+        interface "Command" as Command
         component [Commands Service] as CommandService
 
-        CommandProcessing -left- CommandService
+        Command -left- CommandService
         CommandService ..> CommandValidation : validates with
         CommandValidation - [Validation]
     }
-    [Server] ..> CommandProcessing : POSTs to
+    [Server] ..> Command : submits (**POST**)
 
     package "Queries" {
-        interface "Query Processing" as QueryProcessing
+        interface "Query" as Query
         component [Query Service] as QueryService
-        QueryProcessing - QueryService
+        Query - QueryService
     }
-    [Server] ..> QueryProcessing : GETs from
+    [Server] ..> Query : submits (**GET**)
 
     package "Authentication" {
         interface User
