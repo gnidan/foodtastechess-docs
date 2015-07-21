@@ -95,7 +95,7 @@ Main Application Architecture
         interface "Command Processing" as CommandProcessing
         component [Commands Service] as CommandService
 
-        CommandProcessing - CommandService
+        CommandProcessing -left- CommandService
         CommandService ..> CommandValidation : validates with
         CommandValidation - [Validation]
     }
