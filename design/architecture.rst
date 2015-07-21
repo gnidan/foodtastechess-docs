@@ -4,14 +4,10 @@ System Architecture
 Overview
 --------
 
-The system is architected as a web service, and as such, comprises
-several physical components, in addition to multiple components that
-make up the main server application. Most of these not withstanding,
-the main server application is responsible and solely comprises all
-domain logic.
-
-This main application has uses the model of *Command-Query Responsibility
-Separation*, separated roughly into three discrete layers.
+**foodtastechess** is architected as a web service, comprising several
+physical components, most centrally of which is a server application.
+This main application uses a model of *Command-Query Responsibility
+Separation*, and is roughly divided into three discrete layers.
 
 
 Physical Components
@@ -72,14 +68,16 @@ Physical Components
 ```````````````````
 
 .. uml::
+    :scale: 70 %
+
     [Client Application] ..> HTTP
     HTTP - [Main Application]
     database UsersDB
     database EventsDB
-    database AnswerCache
+    database GameStateCache
     [Main Application] ..> UsersDB
     [Main Application] ..> EventsDB
-    [Main Application] ..> AnswerCache
+    [Main Application] ..> GameStateCache
 
 Main Application Architecture
 `````````````````````````````
@@ -150,5 +148,5 @@ Main Application Architecture
     database EventsDB
     [Events] -left- EventsDB
 
-    database AnswerCache
-    [Aggregation] -right- AnswerCache
+    database GameStateCache
+    [Aggregation] -right- GameStateCache
