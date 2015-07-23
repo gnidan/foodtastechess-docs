@@ -5,7 +5,7 @@ Functional Requirements
 -----------------------
 
 Client Application
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Login Screen
 ````````````
@@ -28,7 +28,7 @@ New Game Screen
 - The application provides a button that creates the new game instance and takes the user to an In-Game Screen of the new game.
 
 In-Game Screen
-```````````
+``````````````
 - If the user is viewing a completed game the application displays a modal dialog with the final game state.
 - If the user enters the In-Game Screen while they are in check the application displays a modal dialog informing them of the check state.
 - The application displays a game board that represents the current game state.
@@ -78,10 +78,10 @@ In-Game Screen
 - The application provides a button that allows the user to return to the Lobby Screen.
 
 Server Application
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Recieving of moves
-```````````````````````````
+``````````````````
 - Server must take in multiple moves per second from a variety of games
 - Server must respond with the updated game state after a valid move
 - The game state will be accompanied by all valid moves that the client may make
