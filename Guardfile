@@ -1,5 +1,8 @@
 notification :off
 
+ignore /\/doc\/\.git/, /^_builds/, /_templates/, /\.ist$/
+
+
 PORT = ENV['PORT'] || 5500
 RELOAD_PORT = ENV['RELOAD_PORT'] || 35729
 
