@@ -15,7 +15,7 @@ Game Logic
     }
 
     interface Move {
-        translate(Position, Board) []Position
+        translate(Position, GameState) []Position
     }
 
     class SafeMove {
@@ -33,9 +33,8 @@ Game Logic
         fileOffset
     }
 
-    class NonCapturingMove {
-        rankOffset
-        fileOffset
+    class AdvancingMove {
+        rankDelta
     }
 
     class CapturingMove {
@@ -54,7 +53,7 @@ Game Logic
     SafeMove ..> Move
     UnboundedMove ..> Move
     JumpingMove ..> Move
-    NonCapturingMove ..> Move
+    AdvancingMove ..> Move
     CapturingMove ..> Move
     Castle ..> Move
     EnPassant ..> Move
@@ -69,7 +68,7 @@ Game Logic
     Piece o-- Move
 
 
-    Pawn ..> NonCapturingMove
+    Pawn ..> AdvancingMove
     Pawn ..> CapturingMove
     Pawn ..> EnPassant
 
@@ -84,13 +83,16 @@ Game Logic
     King ..> SafeMove
     King ..> Castle
 
-
     class Position {
         rank
         file
     }
 
-    class Board {
+    class TurnNumber {
+    }
+
+    class GameState {
+        turnNumber() TurnNumber
         positionWithinBounds(Position) bool
         positionsOfUnmovedPieces() []Position
         piecePositions() []Position
@@ -98,10 +100,11 @@ Game Logic
         validMoves(Position) []Position
     }
 
-    Board *-- Piece
-    Board *-- Move
-    Board o-- Player
-    Board o-- Position
+    GameState *-- "n" Piece
+    GameState *-- "n" Move
+    GameState o-- "2" Player
+    GameState o-- "n" Position
+    GameState o-- "1" TurnNumber
 
 
 Game Aggregation
@@ -166,4 +169,5 @@ QueryTypeAnswerer
     class BoardStateAnswerer .up.> QueryTypeAnswerer
     class ValidMovesAnswerer .up.> QueryTypeAnswerer
     class ActivePlayerAnswerer .up.> QueryTypeAnswerer
+    class UnmovedPieceAnswerer .up.> QueryTypeAnswerer
 
