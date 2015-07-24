@@ -138,6 +138,13 @@ Main Application Architecture
         [Aggregation] ..> EventSource : retrieves from
     }
 
+    package "Game" {
+        interface "Game" as Game
+        interface "ValidMoves" as ValidMoves
+    }
+    [Aggregation] ..> Game
+    [Aggregation] ..> ValidMoves
+
     CommandService ..> Event : writes
     CommandService ..> GameLock : acquires and releases
 
