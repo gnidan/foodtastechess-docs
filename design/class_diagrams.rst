@@ -1,6 +1,109 @@
 Class Diagrams
 ==============
 
+Game Logic
+----------
+
+.. uml::
+    class Player {
+        color Color
+    }
+
+    interface Piece {
+        name() str
+        player() Player
+    }
+
+    interface Move {
+        translate(Position, Board) []Position
+    }
+
+    class SafeMove {
+        rankOffset
+        fileOffset
+    }
+
+    class UnboundedMove {
+        rankDelta
+        fileDelta
+    }
+
+    class JumpingMove {
+        rankOffset
+        fileOffset
+    }
+
+    class NonCapturingMove {
+        rankOffset
+        fileOffset
+    }
+
+    class CapturingMove {
+        rankOffset
+        fileOffset
+    }
+
+    class Castle {
+        fileOffset
+    }
+
+    class EnPassant {
+        fileOffset
+    }
+
+    SafeMove ..> Move
+    UnboundedMove ..> Move
+    JumpingMove ..> Move
+    NonCapturingMove ..> Move
+    CapturingMove ..> Move
+    Castle ..> Move
+    EnPassant ..> Move
+
+    class Pawn .up.> Piece
+    class Rook .up.> Piece
+    class Knight .up.> Piece
+    class Bishop .up.> Piece
+    class Queen .up.> Piece
+    class King .up.> Piece
+
+    Piece o-- Move
+
+
+    Pawn ..> NonCapturingMove
+    Pawn ..> CapturingMove
+    Pawn ..> EnPassant
+
+    Rook ..> UnboundedMove
+
+    Knight ..> JumpingMove
+
+    Bishop ..> UnboundedMove
+
+    Queen ..> UnboundedMove
+
+    King ..> SafeMove
+    King ..> Castle
+
+
+    class Position {
+        rank
+        file
+    }
+
+    class Board {
+        positionWithinBounds(Position) bool
+        positionsOfUnmovedPieces() []Position
+        piecePositions() []Position
+        pieceAtPosition(Position) Piece
+        validMoves(Position) []Position
+    }
+
+    Board *-- Piece
+    Board *-- Move
+    Board o-- Player
+    Board o-- Position
+
+
 Game Aggregation
 ----------------
 
@@ -27,7 +130,7 @@ Game Aggregation
 
     class Answer
 
-    class QueryService << ($,#FF7700) >> {
+    class QueryService << (S,#FF7700) >> {
         answerers map[QueryType]QueryTypeAnswerer
         answerCache AnswerCache
 
@@ -41,14 +144,6 @@ Game Aggregation
         getTTL() TTL
     }
 
-    /'
-    class MoveAtTurnAnswerer ..> QueryTypeAnswerer
-    class TurnNumberAnswerer ..> QueryTypeAnswerer
-    class BoardStateAnswerer ..> QueryTypeAnswerer
-    class ValidMovesAnswerer ..> QueryTypeAnswerer
-    class ActivePlayerAnswerer ..> QueryTypeAnswerer
-    '/
-
     Query *-- QueryType
 
     QueryService o-- "n" QueryTypeAnswerer : injected
@@ -57,4 +152,18 @@ Game Aggregation
     QueryService *-- "n" Answer
 
     QueryTypeAnswerer o-- "1" QueryType
+
+
+
+
+
+QueryTypeAnswerer
+`````````````````
+
+.. uml::
+    class MoveAtTurnAnswerer .up.> QueryTypeAnswerer
+    class TurnNumberAnswerer .up.> QueryTypeAnswerer
+    class BoardStateAnswerer .up.> QueryTypeAnswerer
+    class ValidMovesAnswerer .up.> QueryTypeAnswerer
+    class ActivePlayerAnswerer .up.> QueryTypeAnswerer
 
