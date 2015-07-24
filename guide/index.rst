@@ -43,3 +43,16 @@ This diagram is generated with the following::
 
 For more information, please visit the
 `PlantUML homepage <http://plantuml.com>`_.
+
+
+PDF Support
+-----------
+
+Sphinx is set up to build a PDF version of the documentation. This is split
+up into multiple documents, controlled by ``conf.py``.
+
+Adding a New Document
+`````````````````````
+In ``conf.py``, find the line that says ``latex_documents =``. Add another
+document to this array as per the existing ones.
+

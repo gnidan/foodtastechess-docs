@@ -27,6 +27,8 @@ import shlex
 #needs_sphinx = '1.0'
 
 plantuml = 'java -jar {}'.format(os.environ['PLANTUML_JAR'])
+plantuml_latex_output_format = 'pdf'
+plantuml_output_format = 'png'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -50,6 +52,7 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 requirements_doc = 'requirements/index'
+design_doc = 'design/index'
 guide_doc = 'guide/index'
 
 # General information about the project.
@@ -250,6 +253,8 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (requirements_doc, 'requirements.tex', u'foodtastechess Requirements',
+     author, 'manual'),
+    (design_doc, 'design.tex', u'foodtastechess Software Design',
      author, 'manual'),
     (guide_doc, 'docs_guide.tex', u'foodtastechess Docs Writing Guide',
      author, 'manual'),
