@@ -1,6 +1,301 @@
 Class Diagrams
 ==============
 
+Client Query Service
+--------------------
+
+.. uml::
+
+    interface ClientQueryInterface {
+        gamesForUser(user.Id) []game.Id
+        gameInformation(game.Id) GameInformation
+        moveHistory(game.Id) MoveHistory
+        validMoves(game.Id) map[Position]([]Position)
+    }
+
+    class ClientQueryService {
+    }
+
+    ClientQueryService .up.> ClientQueryInterface
+
+    interface SystemQueryInterface
+    interface UsersInterface
+    ClientQueryService o-- SystemQueryInterface : injected
+    ClientQueryService o-- UsersInterface : injected
+
+See `System Queries`_ and `Users and Authentication`_
+
+Client Command Service
+----------------------
+
+.. uml::
+    interface CommandInterface {
+        submitCommand(Command) CommandStatus
+    }
+
+    interface CommandValidation {
+        isValid(Command) bool
+    }
+
+    class CommandService {
+        publishEvent(Event)
+    }
+
+    class ValidationService {
+        queries ClientQueryInterface
+        validatorsForCommand(Command) []Validators
+    }
+
+    interface Validator {
+        validate(Command, ClientQueryInterface) bool
+    }
+
+    class ActivePlayerValidator
+    class MoveValidator
+    class OutstandingOfferValidator
+
+    ActivePlayerValidator .up.> Validator
+    MoveValidator .up.> Validator
+    OutstandingOfferValidator .up.> Validator
+
+    CommandService .up.> CommandInterface
+    CommandService o-- CommandValidation
+    interface EventInterface
+    CommandService o-- EventInterface : injected
+
+    ValidationService .up.> CommandValidation
+    ValidationService *-- Validator
+    interface ClientQueryInterface
+    ValidationService o-- ClientQueryInterface : injected
+
+See `Events`_  and `Client Query Service`_.
+
+
+Users and Authentication
+------------------------
+
+.. uml::
+    interface UsersInterface {
+        UserByUUID(uuid UUID) User
+        SaveUser(User) error
+    }
+
+    interface AuthenticationInterface {
+        Authenticate(params) User, bool
+    }
+
+    class UsersService
+
+    UsersService .up.> UsersInterface
+    UsersService .up.> AuthenticationInterface
+
+
+    class User {
+        UUID UUID
+        DisplayName String
+        Claims struct
+    }
+
+    UsersService *-- "n" User
+
+
+Events
+------
+
+.. uml::
+    interface EventInterface {
+        Receive(Event) error
+        EventsForGame(game.Id) []Event
+        EventsByTypeForGame(game.Id, EventType) []Event
+        ActiveGamesForPlayer(uuid UUID) []game.Id
+    }
+
+    class Event {
+        GameId id
+        RefId id
+        RefType string
+    }
+
+    class Game {
+        Id id
+        BlackUUID UUID
+        WhiteUUID UUID
+    }
+
+    class Move {
+        Id id
+        TurnNumber TurnNumber
+        Move string
+    }
+
+    class DrawOffer {
+        Id id
+        Player Color
+    }
+
+    class DrawResponse {
+        Id id
+        DrawOfferId id
+        Player color
+        Accept bool
+    }
+
+    class Concession {
+        Id id
+        Player Color
+    }
+
+    class GameEnd {
+        Id id
+        Winner Color `null`
+        Reason
+    }
+
+    Game .up.> Event
+    Move .up.> Event
+    DrawOffer .up.> Event
+    DrawResponse .up.> Event
+    Concession .up.> Event
+    GameEnd .up.> Event
+
+    interface EventSubscriberInterface {
+        Receive(Event) error
+    }
+
+    interface GameEventLockInterface {
+        withLockOnGame(id game.Id, func() interface{}, wait bool) interface{}, error
+    }
+
+    class EventService
+    EventService *-- "n" Event
+    EventService o-- "n" EventSubscriberInterface : injected
+    EventService .up.> GameEventLockInterface
+    EventService .up.> EventInterface
+
+See `System Queries`_ for a realization of `EventSubscriberInterface`.
+
+
+System Queries
+--------------
+
+.. uml::
+
+    interface Query {
+        PlayerUUID() UUID
+        GameId() game.Id
+        QueryType() QueryType
+        TurnNumber() game.TurnNumber
+    }
+
+    interface SystemQueryInterface {
+        GetAnswer(query Query) Answer
+    }
+
+    interface EventSubscriberInterface {
+        Receive(Event) error
+    }
+
+    class QueryBuffer {
+        queries chan Query
+        process(systemQueryInterface SystemQueryInterface)
+    }
+
+    class Event
+    class EventQueryTranslator {
+        translate(Event) []Query
+    }
+    EventQueryTranslator --> Event : uses
+    EventQueryTranslator --> Query : generates
+
+    interface Answer
+
+    class SystemQueryService << (S,#FF7700) >> {
+    }
+
+    SystemQueryService .up.> SystemQueryInterface
+    SystemQueryService .up.> EventSubscriberInterface
+    SystemQueryService o-- "1" EventQueryTranslator
+    SystemQueryService o-- "1" QueryBuffer
+
+    interface QueryTypeAnswerer {
+        queryType() QueryType
+        computeDependentQueries(Query) []Query
+        computeAnswer(Query, []Answer) Answer
+        getTTL() TTL
+    }
+
+    interface AnswerCache {
+        Retrieve(Key) Answer, bool
+        Store(Query, Answer, Expiry) error
+        Delete(Query)
+    }
+
+    class AnswerCacheService << (S,#FF7700) Service >> {
+    }
+
+    AnswerCacheService .up.> AnswerCache
+
+    class CacheEntry {
+        Key CacheKey
+        Value interface{}
+        IssuedAt timestamp
+        Expiry Expiry
+    }
+
+    AnswerCacheService o-- "n" CacheEntry
+
+
+
+    Query *-- "1"  QueryType
+
+    SystemQueryService o-- "n" QueryTypeAnswerer : injected
+    SystemQueryService o-- "1" AnswerCache : injected
+    SystemQueryService *-- "n" Query
+    SystemQueryService *-- "n" Answer
+
+    QueryType o-- "1" QueryTypeAnswerer
+
+
+QueryTypeAnswerer
+`````````````````
+
+.. uml::
+    interface QueryTypeAnswerer
+
+    class MoveAtTurnAnswerer .up.> QueryTypeAnswerer
+    class TurnNumberAnswerer .up.> QueryTypeAnswerer
+    class BoardStateAnswerer .up.> QueryTypeAnswerer
+    class ValidMovesAnswerer .up.> QueryTypeAnswerer
+    class ActivePlayerAnswerer .up.> QueryTypeAnswerer
+    class UnmovedPositionsAnswerer .up.> QueryTypeAnswerer
+    class UserGamesAnswerer .up.> QueryTypeAnswerer
+
+    interface GameStateInterface
+    interface EventInterface
+
+    MoveAtTurnAnswerer o-- EventInterface : injected
+    TurnNumberAnswerer o-- EventInterface : injected
+
+    BoardStateAnswerer --> BoardStateAnswerer
+    BoardStateAnswerer --> MoveAtTurnAnswerer
+
+    ValidMovesAnswerer --> BoardStateAnswerer
+    ValidMovesAnswerer o-- GameStateInterface : injected
+
+
+    ActivePlayerAnswerer --> TurnNumberAnswerer
+    note left on link
+        denotes "depends on"
+    end note
+
+    UnmovedPositionsAnswerer --> MoveAtTurnAnswerer
+    UnmovedPositionsAnswerer --> UnmovedPositionsAnswerer
+
+    UserGamesAnswerer --> EventInterface : injected
+
+
+See `Events`_ for details on the EventInterface.
+
 Game Logic
 ----------
 
@@ -12,6 +307,7 @@ Game Logic
     interface Piece {
         name() str
         player() Player
+        moves() []Move
     }
 
     interface Move {
@@ -68,20 +364,20 @@ Game Logic
     Piece o-- Move
 
 
-    Pawn ..> AdvancingMove
-    Pawn ..> CapturingMove
-    Pawn ..> EnPassant
+    Pawn o-- AdvancingMove
+    Pawn o-- CapturingMove
+    Pawn o-- EnPassant
 
-    Rook ..> UnboundedMove
+    Rook o-- UnboundedMove
 
-    Knight ..> JumpingMove
+    Knight o-- JumpingMove
 
-    Bishop ..> UnboundedMove
+    Bishop o-- UnboundedMove
 
-    Queen ..> UnboundedMove
+    Queen o-- UnboundedMove
 
-    King ..> SafeMove
-    King ..> Castle
+    King o-- SafeMove
+    King o-- Castle
 
     class Position {
         rank
@@ -91,14 +387,17 @@ Game Logic
     class TurnNumber {
     }
 
-    class GameState {
-        turnNumber() TurnNumber
-        positionWithinBounds(Position) bool
-        positionsOfUnmovedPieces() []Position
-        piecePositions() []Position
-        pieceAtPosition(Position) Piece
-        validMoves(Position) []Position
+    interface GameStateInterface {
+        NewGameState(turn TurnNumber, map[Position]Piece, unmovedPositions []Position)
+        TurnNumber() TurnNumber
+        PositionWithinBounds(Position) bool
+        UnmovedPositions() []Position
+        PiecePositions() []Position
+        PieceAtPosition(Position) Piece
+        ValidMoves(Position) []Position
     }
+
+    class GameState .up.> GameStateInterface
 
     GameState *-- "n" Piece
     GameState *-- "n" Move
@@ -106,68 +405,4 @@ Game Logic
     GameState o-- "n" Position
     GameState o-- "1" TurnNumber
 
-
-Game Aggregation
-----------------
-
-.. uml::
-    class AnswerCache << (S,#FF7700) Service >> {
-        Retrieve(Key) Answer, bool
-        Store(Query, Answer, Expiry) error
-    }
-
-    class CacheEntry {
-        Key CacheKey
-        Value interface{}
-        IssuedAt timestamp
-        Expiry Expiry
-    }
-
-    AnswerCache o-- "n" CacheEntry
-
-    class Query {
-        GameId game.Id
-        QueryType QueryType
-        TurnNumber game.TurnNumber
-    }
-
-    class Answer
-
-    class QueryService << (S,#FF7700) >> {
-        answerers map[QueryType]QueryTypeAnswerer
-        answerCache AnswerCache
-
-        getAnswer(Query Query) Answer
-    }
-
-    abstract class QueryTypeAnswerer {
-        QueryType QueryType
-        computeDependentQueries(Query) []Query
-        computeAnswer(Query, []Answer) Answer
-        getTTL() TTL
-    }
-
-    Query *-- QueryType
-
-    QueryService o-- "n" QueryTypeAnswerer : injected
-    QueryService o-- "1" AnswerCache : injected
-    QueryService *-- "n" Query
-    QueryService *-- "n" Answer
-
-    QueryTypeAnswerer o-- "1" QueryType
-
-
-
-
-
-QueryTypeAnswerer
-`````````````````
-
-.. uml::
-    class MoveAtTurnAnswerer .up.> QueryTypeAnswerer
-    class TurnNumberAnswerer .up.> QueryTypeAnswerer
-    class BoardStateAnswerer .up.> QueryTypeAnswerer
-    class ValidMovesAnswerer .up.> QueryTypeAnswerer
-    class ActivePlayerAnswerer .up.> QueryTypeAnswerer
-    class UnmovedPieceAnswerer .up.> QueryTypeAnswerer
 
