@@ -13,7 +13,7 @@ Client Query Service
         validMoves(game.Id) map[Position]([]Position)
     }
 
-    class ClientQueryService {
+    class ClientQueryService << (S,#FF7700) Service >> {
     }
 
     ClientQueryService .up.> ClientQueryInterface
@@ -37,11 +37,11 @@ Client Command Service
         isValid(Command) bool
     }
 
-    class CommandService {
+    class CommandService << (S,#FF7700) Service >> {
         publishEvent(Event)
     }
 
-    class ValidationService {
+    class ValidationService << (S,#FF7700) Service >> {
         queries ClientQueryInterface
         validatorsForCommand(Command) []Validators
     }
@@ -84,7 +84,7 @@ Users and Authentication
         Authenticate(params) User, bool
     }
 
-    class UsersService
+    class UsersService << (S,#FF7700) Service >>
 
     UsersService .up.> UsersInterface
     UsersService .up.> AuthenticationInterface
@@ -166,7 +166,7 @@ Events
         withLockOnGame(id game.Id, func() interface{}, wait bool) interface{}, error
     }
 
-    class EventService
+    class EventService << (S,#FF7700) Service >>
     EventService *-- "n" Event
     EventService o-- "n" EventSubscriberInterface : injected
     EventService .up.> GameEventLockInterface
@@ -255,6 +255,7 @@ System Queries
 
     QueryType o-- "1" QueryTypeAnswerer
 
+See `Events`_ for details on the event system.
 
 QueryTypeAnswerer
 `````````````````
@@ -291,10 +292,10 @@ QueryTypeAnswerer
     UnmovedPositionsAnswerer --> MoveAtTurnAnswerer
     UnmovedPositionsAnswerer --> UnmovedPositionsAnswerer
 
-    UserGamesAnswerer --> EventInterface : injected
+    UserGamesAnswerer o-- EventInterface : injected
 
 
-See `Events`_ for details on the EventInterface.
+See `Events`_ and `Game Logic`_.
 
 Game Logic
 ----------
