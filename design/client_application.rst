@@ -94,7 +94,7 @@ New Game Screen
 
 **Opponent Selection**
     *Type*
-        Single-Line Field
+        Single-line field
 
     *Label*
         "Opponent Email Address"
@@ -114,11 +114,13 @@ New Game Screen
 
     *Description*
         Allow the user to choose if they wish to play as "White", "Black", or
-        "Random" if they have no preference. If the user chooses "White" or
-        "Black" the application will assign the opposing color to the opponent.
-        If the user chooses "Random" then the user will be arbitrarilly
-        assigned "White" or "Black", and the opponent will be assigned the
-        opposing color.
+        "Random" if they have no preference.
+
+    *Behavior*
+        If the user chooses "White" or "Black" the application will assign the
+        opposing color to the opponent. If the user chooses "Random" then the
+        user will be arbitrarilly assigned "White" or "Black", and the opponent
+        will be assigned the opposing color.
 
     *Default*
         "Random"
@@ -137,4 +139,9 @@ New Game Screen
 
 In-Game Screen
 ``````````````
+    This screen displays the game's current state graphically with an
+    interactive interface that allows the user to manipulate the game state
+    appropriately.
 
+**Game Board**
+    *Description*
