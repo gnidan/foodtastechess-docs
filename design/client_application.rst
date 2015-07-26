@@ -80,6 +80,7 @@ Lobby Screen
 
 New Game Screen
 ```````````````
+    This screen allows the user to initiate a new game instance.
 
 **Return**
     *Type*
