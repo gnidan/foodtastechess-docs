@@ -6,3 +6,4 @@ Design
 
     architecture
     components
+    client_application
