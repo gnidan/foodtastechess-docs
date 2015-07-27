@@ -33,6 +33,7 @@ Client Query Service
 --------------------
 
 .. uml::
+    :scale: 50 %
 
     interface ClientQueryInterface {
         GamesForUser(user.Id) []game.Id
@@ -145,7 +146,6 @@ states.
 The command interface provides a method for submitting commands and getting
 a resulting status.
 
-
 See `Events`_  and `Client Query Service`_ for referenced interfaces.
 
 
@@ -154,7 +154,7 @@ Users and Authentication
 
 .. uml::
     interface UsersInterface {
-        UserByUUID(uuid UUID) User
+        UserByUUID(uuid UUID) User, error
         SaveUser(User) error
     }
 
@@ -176,16 +176,40 @@ Users and Authentication
 
     UsersService *-- "n" User
 
+The **Users Interface** provides two methods, one for retrieving, and one for
+saving:
+
+    UserByUUID(uuid UUID) User, error
+        Given a universally-unique identifier (UUID), returns a User object
+        or an error.
+
+    SaveUser(User) error
+        Given a User object, add or update the user in the database. May
+        return an error.
+
+The **Authentication Interface** provides an interface to authenticate an
+incoming request. The **Users Service** uses third-party OAuth tools to provide
+this behavior.
+
 
 Events
 ------
 
 .. uml::
+    :scale: 50 %
     interface EventInterface {
         Receive(Event) error
         EventsForGame(game.Id) []Event
         EventsByTypeForGame(game.Id, EventType) []Event
-        ActiveGamesForPlayer(uuid UUID) []game.Id
+        ActiveGamesForPlayer(uuid UUID) []game.Id, error
+    }
+
+    interface EventSubscriberInterface {
+        Receive(Event) error
+    }
+
+    interface GameEventLockInterface {
+        withLockOnGame(id game.Id, func() interface{}, wait bool) interface{}, error
     }
 
     class Event {
@@ -236,21 +260,53 @@ Events
     Concession .up.> Event
     GameEnd .up.> Event
 
-    interface EventSubscriberInterface {
-        Receive(Event) error
-    }
-
-    interface GameEventLockInterface {
-        withLockOnGame(id game.Id, func() interface{}, wait bool) interface{}, error
-    }
-
     class EventService << (S,#FF7700) Service >>
     EventService *-- "n" Event
     EventService o-- "n" EventSubscriberInterface : injected
     EventService .up.> GameEventLockInterface
     EventService .up.> EventInterface
 
-See `System Queries`_ for a realization of `EventSubscriberInterface`.
+
+The **Event Interface** provides the following methods for receiving
+and searching for events.
+
+    Receive(Event) error
+        Given an event, store it and propagate it through the system,
+        or return an error.
+
+    EventsForGame(game.Id) []Event
+        Given a game ID, returns a list of all events for that game.
+
+    EventsByTypeForGame(game.Id, EventType) []Event
+        Given a game ID and an event type, finds all events of that type
+        for that game.
+
+    ActiveGamesForPlayer(uuid UUID) []game.Id, error
+        Given a player's UUID, return a list of games the user is
+        participating in, or has participated in. Returns an error
+        if the user does not exist.
+
+The **Event Subscriber Interface** provides a mechanism by which
+external system components may be notified upon events. The interface
+uses a single method:
+
+    Receive(Event) error
+        Given an event, perform some state computation, possibly
+        returning an error.
+
+The **Game Event Lock Interface** provides a means with which event-generating
+systems may ensure mutual exclusion on game resources. The interface provides
+a single method:
+
+    withLockOnGame(id game.Id, func() interface{}, wait bool) interface{}, error
+        Given a game ID, a function, and whether or not the lock acquisition
+        should wait or die, **withLockOnGame** attempts to acquire the lock
+        and then runs the provided function, releasing when complete.
+
+The **Event Service** realizes these interfaces using an append-only log
+in a database.
+
+See `System Queries`_ for a realization of the **Event Subscriber Interface**.
 
 
 System Queries
@@ -333,6 +389,33 @@ System Queries
 
     QueryType o-- "1" QueryTypeAnswerer
 
+The **System Query Interface** provides a means of getting answers to specific
+and codified questions.
+
+**Queries** are objects which must be able to answer the following questions,
+possibly with null values. These values constitute a unique key for which
+the query --> answer relation may be referentially transparent.
+
+    PlayerUUID() UUID
+        The player UUID. *Only used for the **UserGames** query type.*
+
+    GameId() game.Id
+        The game ID. Not used for **UserGames** query type.
+
+    QueryType() QueryType
+        The type of query, e.g., the move at a given turn, the board state
+        at a given turn.
+
+    TurnNumber() game.TurnNumber
+        The turn number argument for the query type. May not be used
+        for all types.
+
+The **System Query Services** uses an **Answer Cache**, stored in a document
+store (MongoDB), where each document has an expiry that may either be
+a timestamp or a turn number. Query Types have dependent queries, and
+the service computes answers or retrieves them if previously stored,
+storing the answers for a time.
+
 See `Events`_ for details on the event system.
 
 QueryTypeAnswerer
@@ -347,6 +430,7 @@ QueryTypeAnswerer
     class ValidMovesAnswerer .up.> QueryTypeAnswerer
     class ActivePlayerAnswerer .up.> QueryTypeAnswerer
     class UnmovedPositionsAnswerer .up.> QueryTypeAnswerer
+    class DrawOfferAnswerer .up.> QueryTypeAnswerer
     class UserGamesAnswerer .up.> QueryTypeAnswerer
 
     interface GameStateInterface
@@ -361,6 +445,8 @@ QueryTypeAnswerer
     ValidMovesAnswerer --> BoardStateAnswerer
     ValidMovesAnswerer o-- GameStateInterface : injected
 
+    DrawOfferAnswerer --> DrawOfferAnswerer
+    DrawOfferAnswerer o-- EventInterface : injected
 
     ActivePlayerAnswerer --> TurnNumberAnswerer
     note left on link
@@ -372,6 +458,38 @@ QueryTypeAnswerer
 
     UserGamesAnswerer o-- EventInterface : injected
 
+The system supports a number of different query types, each providing its own
+**Answerer**
+
+Supported Query Types:
+
+    MoveAtTurn
+        The move for a given turn in the game. Interfaces with `Events`_ to
+        retrieve moves.
+
+    TurnNumber
+        The current turn for a game. Interfaces with `Events`_ to
+        maintain consistency.
+
+    BoardStateAtTurn
+        Depends on BoardStateAtTurn(n-1) and the MoveAtTurn(n)
+        queries and computes the next board state.
+
+    ValidMovesAtTurn
+        Returns a list of valid moves the active player can make.
+
+    ActivePlayer
+        Based on the TurnNumber, returns the active player.
+
+    UnmovedPositionsAtTurn
+        Returns a list of positions for pieces that haven't moved
+        all game up to that point.
+
+    DrawOffer
+        Whether or not there is an outstanding draw offer.
+
+    UserGames
+        The list of games associated with that player UUID.
 
 See `Events`_ and `Game Logic`_.
 
@@ -413,6 +531,15 @@ Game Logic
         ValidMoves(Position) []Position
     }
 
+    interface ValidityFilter {
+        filter(GameState, Position, []Position) []Position
+    }
+
+    class CheckFilter {
+    }
+
+    CheckFilter ..> ValidityFilter
+
     class GameState .up.> GameStateInterface
 
     GameState *-- "n" Piece
@@ -420,7 +547,19 @@ Game Logic
     GameState o-- "2" Player
     GameState o-- "n" Position
     GameState o-- "1" TurnNumber
+    GameState o-- "n" ValidityFilter
 
+Game logic in **foodtastechess** works by having multiple **pieces**, each of which
+is defined as having multiple **move** options. **Moves** provide a means by
+which positions may be translated into a list of available positions, given
+a game state.
+
+Essentially, given a game state (piece positions, etc.), pieces compose moves,
+which are responsible for translating positions into other positions,
+keeping in mind the other pieces on the board at the time.
+
+Move validity is then passed through a single **Validity Filter**, the
+**Check Filter**, to prevent the player from moving into check.
 
 Piece and Move Organization
 ```````````````````````````
@@ -499,4 +638,34 @@ Piece and Move Organization
     interface Move {
         translate(Position, GameState) []Position
     }
+
+There are a number of different *types* of moves in chess, and this system
+organizes them as follows:
+
+    SafeMove
+        Given a rank offset and a file offset, moves the piece into that
+        position assuming it is not at risk of being captured.
+
+    UnboundedMove
+        Given a rank and file delta, moves the piece to any number of pieces
+        in a line, up to and including an enemy piece (capturing it), or
+        right before a friendly piece.
+
+    JumpingMove
+        Moves the piece to a specific rank and file offset, if the
+        spot is empty or occupied by an enemy piece (capturing it).
+
+    AdvancingMove
+        Used by pawns to move 1 or 2 spaces (if the first move), and
+        to promote the pawn into a queen or other piece at the end.
+
+    CapturingMove
+        Used by pawns to represent moves that must involve a capture.
+
+    EnPassant
+        Used by pawns to capture in the scenario of *en passant*.
+
+    Castle
+        Used by the king to switch places with a rook if the king has
+        not yet moved.
 
