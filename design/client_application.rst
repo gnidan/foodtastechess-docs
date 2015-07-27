@@ -92,19 +92,6 @@ New Game Screen
     *Behavior*
         Discard of the new game instance and return the user to the lobby.
 
-**Opponent Selection**
-    *Type*
-        Single-line field
-
-    *Label*
-        "Opponent Email Address"
-
-    *Description*
-        Check the email address input to verify that the the email address
-        input is valid. This is done via a client-side regular expression
-        check. The user may not enter their own email address as an opponent,
-        and such behavior is considered invalid.
-
 **Color Selection**
     *Type*
         Series of three radio buttons
@@ -133,9 +120,22 @@ New Game Screen
         "Submit"
 
     *Description*
-        Check that the email address the user input in the **Opponent
-        Selection** field is valid. Inform the user if the input is invalid.
-        Otherwise, post the new game instance to the server.
+        Post the new game to the server. Provide the **Game URL** modal
+        dialog.
+
+**Game URL**
+    *Type*
+        Modal Dialog
+
+    *Label*
+        "Send this URL to the person that you wish to challenge."
+
+    *Description*
+        After the new game has been sent to the server the game URL will
+        receive a unique game URL.
+
+    *Comment*
+        The label may be changed in future iterations of the application.
 
 In-Game Screen
 ``````````````
