@@ -1,14 +1,12 @@
 Non-Functional Requirements
-===========================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Accessibility
 -------------
 
 - Users with an internet connection may access the web application
-- This web application should be usable by those who are colorblind
-- This web application should allow ample time for those with mobility impairment
-- This web application will show available moves to those who need it
-- This web application should comply with web standards of accessibilty
+- This web application should allow ample time for moves to those with mobility impairment
+- This web application will show available moves to everyone
 
 Availability
 ------------
@@ -26,11 +24,6 @@ Deployment
 - This web application will deploy on docker for each component
 - This web application will be continously deployed from github
 
-Extensibilty
-------------
-
-- This web application should prepare for versions past 1.0 and should be coded with simple, numerous functions
-
 Fault Tolerance
 ---------------
 
@@ -46,10 +39,8 @@ Licensing
 Maintainability
 ---------------
 
-- This web application should be written in idiom and simple language so that it may be maintained
-- This web application should have simple functions
-- This web application should provide proper logging
-- This web application should use modules to allow for future upgrades
+- This web application should provide a level of logging
+- This web application should be highly modular to allow for future upgrades
 
 Network Topology
 ----------------
@@ -68,7 +59,7 @@ Performance
 
 - This web application should support at least 50 moves a second
     - Including validation and database update
-- The client should not appear to experience any latency
+- The client should not appear to experience any latency in excess of 1000 ms
 
 Platform
 --------
@@ -114,7 +105,7 @@ Response Time
 Reusability
 -----------
 
-- This web application should be built in a modular nature to allow for reuse of its components
+- This web application should be built with many modules to allow for reuse of its components
 
 Robustness
 ----------
@@ -135,7 +126,6 @@ Security
 Supportability
 --------------
 
-- This web application should have clear code that can be supported after release
 - This web application will not be maintained after release
 
 Testability
@@ -148,8 +138,3 @@ Usability
 
 - This web application should have a one command initialization 
 - This web application should be able to be run with only docker installed on the host machine
-
-User Friendliness
------------------
-
-- This web application should use web standards in order to provide an uninterupped user experience
