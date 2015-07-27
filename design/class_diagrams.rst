@@ -213,9 +213,9 @@ System Queries
     }
 
     SystemQueryService .up.> SystemQueryInterface
-    SystemQueryService .up.> EventSubscriberInterface
     SystemQueryService o-- "1" EventQueryTranslator
     SystemQueryService o-- "1" QueryBuffer
+    QueryBuffer .up.> EventSubscriberInterface
 
     interface QueryTypeAnswerer {
         queryType() QueryType

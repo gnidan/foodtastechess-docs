@@ -88,72 +88,81 @@ Main Application Architecture
     package "Server" {
         HTTP - [Server]
     }
-    package "Commands" {
+
+    package "Client Query Service" {
+        interface "Client Query Interface" as ClientQueryInterface
+        component [Client Query Service] as ClientQueryService
+        ClientQueryService -up- ClientQueryInterface
+    }
+
+    package "Client Command Service" {
+        interface "Command Interface" as CommandInterface
         interface "Command Validation" as CommandValidation
-        interface "Command" as Command
-        component [Commands Service] as CommandService
+        component [Command Service] as CommandService
+        component [Validation Service] as ValidationService
 
-        Command -left- CommandService
+        CommandService - CommandInterface
         CommandService ..> CommandValidation : validates with
-        CommandValidation - [Validation]
+        CommandValidation - ValidationService
     }
-    [Server] ..> Command : submits (**POST**)
 
-    package "Queries" {
-        interface "Query" as Query
-        component [Query Service] as QueryService
-        Query - QueryService
-    }
-    [Server] ..> Query : submits (**GET**)
+    package "Users and Authentication" {
+        interface "Users Interface" as UsersInterface
+        interface "Authentication Interface" as AuthenticationInterface
+        component [Users Service] as UsersService
 
-    package "Authentication" {
-        interface User
-        component "Users Service" as UserService
-        User - UserService
+        UsersService -left- UsersInterface
+        UsersService -up- AuthenticationInterface
     }
-    [Server] ..> User : authenticates with
+
+    package "Events" {
+        interface "Event Interface" as EventInterface
+        interface "Event Subscriber Interface" as EventSubscriberInterface
+        interface "Game Event Lock Interface" as GameEventLockInterface
+        component [Event Service] as EventService
+
+        EventService -up- EventInterface
+        EventService -up- GameEventLockInterface
+        EventService .right.> EventSubscriberInterface : notifies
+    }
+
+    package "System Query Service" {
+        interface "System Query Interface" as SystemQueryInterface
+        component [System Query Service] as SystemQueryService
+        component [Query Buffer] as QueryBuffer
+
+        SystemQueryService -up- SystemQueryInterface
+        SystemQueryService -down- QueryBuffer
+
+        package "Game Logic" {
+            interface "Game State Interface" as GameStateInterface
+            component [Game State] as GameState
+
+            GameState -up- GameStateInterface
+        }
+
+        SystemQueryService .right.> GameStateInterface
+    }
+
+    [Server] ..> CommandInterface : submits (**POST**)
+    [Server] ..> ClientQueryInterface : submits (**GET**)
+    [Server] .right.> AuthenticationInterface : authenticates with
 
     database UsersDB
-    UserService - UsersDB
+    UsersService - UsersDB
 
-    QueryService .right.> User : includes
+    ClientQueryService ..> UsersInterface : includes results from
+    ClientQueryService ..> SystemQueryInterface : exposes facade of
 
-    package "Games Management" {
-        interface "Event Aggregation" as EventAggregation
-        interface "Event Source" as EventSource
-        interface "Event" as Event
-        interface "Game State" as GameState
-        interface "Game Event Lock" as GameLock
-
-        Event -down- [Events]
-        GameLock -down- [Events]
-        EventSource -up- [Events]
-
-        GameState -down- [Aggregation]
-        EventAggregation -up- [Aggregation]
-
-        [Events]
-        [Aggregation]
-        [Events] ..> EventAggregation : notifies on new events
-        [Aggregation] ..> EventSource : retrieves from
-    }
-
-    package "Game" {
-        interface "Game" as Game
-        interface "ValidMoves" as ValidMoves
-    }
-    [Aggregation] ..> Game
-    [Aggregation] ..> ValidMoves
-
-    CommandService ..> Event : writes
-    CommandService ..> GameLock : acquires and releases
-
-
-    [Validation] ..> GameState : retrieves
-    QueryService ..> GameState : retrieves
+    ValidationService .right.> ClientQueryInterface : checks state against
+    CommandService ..> EventInterface : sends events to
+    CommandService ..> GameEventLockInterface : acquires and releases locks with
 
     database EventsDB
-    [Events] -left- EventsDB
+    EventService - EventsDB
 
     database GameStateCache
-    [Aggregation] -right- GameStateCache
+    QueryBuffer - EventSubscriberInterface
+    SystemQueryService -down- GameStateCache
+    SystemQueryService ..> EventInterface : retrieves events from
+
