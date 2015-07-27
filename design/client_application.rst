@@ -291,6 +291,19 @@ In-Game Screen
         Bar**. Selecting the most recent move takes the game out of tracking
         state.
 
+**Confirm Move**
+    *Type*
+        Button
+
+    *Label*
+        "Confirm Move"
+
+    *Behavior*
+        If the user has made a valid move and **Toggle Manual Move
+        Confirmation** is on then the button is activated. Selecting the
+        button when active posts the move to the server. Otherwise, the
+        button is visible but greyed out, indicating that it is not active.
+
 **Offer Draw**
     *Type*
         Button
