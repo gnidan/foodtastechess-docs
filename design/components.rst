@@ -1,5 +1,33 @@
-Class Diagrams
-==============
+Component Breakdown
+===================
+
+Server
+------
+
+.. uml::
+
+    interface RequestHandler {
+        Handle(Request) Response
+    }
+
+    class Server {
+    }
+
+    interface ClientQueryInterface
+    interface CommandInterface
+    interface AuthenticationInterface
+
+    Server -up- RequestHandler
+
+    Server o-- ClientQueryInterface : injected
+    Server o-- CommandInterface : injected
+    Server o-- AuthenticationInterface : injected
+
+The server component is used to interpret HTTP requests, route them to the
+appropriate interface, and return a JSON response to the client.
+
+For details on the respective interfaces, see `Client Query Service`_,
+`Client Command Service`_, and `Users and Authentication`_.
 
 Client Query Service
 --------------------
@@ -7,10 +35,10 @@ Client Query Service
 .. uml::
 
     interface ClientQueryInterface {
-        gamesForUser(user.Id) []game.Id
-        gameInformation(game.Id) GameInformation
-        moveHistory(game.Id) MoveHistory
-        validMoves(game.Id) map[Position]([]Position)
+        GamesForUser(user.Id) []game.Id
+        GameInformation(game.Id) GameInformation
+        MoveHistory(game.Id) MoveHistory
+        ValidMoves(game.Id) map[Position]([]Position)
     }
 
     class ClientQueryService << (S,#FF7700) Service >> {
@@ -23,6 +51,36 @@ Client Query Service
     ClientQueryService o-- SystemQueryInterface : injected
     ClientQueryService o-- UsersInterface : injected
 
+**ClientQueryInterface** provides several methods to retrieve information
+about the current state of the system/a given game:
+
+    GamesForUser(user.Id) []game.Id
+        Given a user ID, returns a list of game IDs for the user.
+
+    GameInformation(game.Id) GameInformation
+        Given a game ID, returns a record of game information, including:
+
+            - Player names for both colors
+            - Current piece positions
+            - Whether or not there is an outstanding draw offer
+            - Any information on check or game end
+
+    MoveHistory(game.Id) MoveHistory
+        Given a game ID, returns a list of moves in algebraic notation,
+        plus the corresponding Forsythe-Edwards Notation for the resulting
+        game state.
+
+    ValidMoves(game.Id) map[Position]([]Position)
+        Given a game ID, returns a map of each of the current player's
+        occupied positions to a list of possible positions where the piece
+        there may move.
+
+
+The Client Query Service provides these interface methods by creating
+*system queries* and submitting them via **System Query Interface**.
+Results are then translated into the form exposed by this interface,
+using augmented information from the **Users Interface**.
+
 See `System Queries`_ and `Users and Authentication`_
 
 Client Command Service
@@ -30,11 +88,11 @@ Client Command Service
 
 .. uml::
     interface CommandInterface {
-        submitCommand(Command) CommandStatus
+        SubmitCommand(command Command) CommandResult
     }
 
     interface CommandValidation {
-        isValid(Command) bool
+        isValid(command Command) bool
     }
 
     class CommandService << (S,#FF7700) Service >> {
@@ -68,7 +126,27 @@ Client Command Service
     interface ClientQueryInterface
     ValidationService o-- ClientQueryInterface : injected
 
-See `Events`_  and `Client Query Service`_.
+The **Command Interface** provides a single method for enacting change within
+the system:
+
+    SubmitCommand(command Command) CommandResult
+        Submit a command, subjected to whatever filtering rules may exist,
+        and return some result based on validity and system function.
+
+The **Command Service** uses the **Validation Interface** to ensure validity
+of input, and then submits events to the **Event Interface**.
+
+The **Validation Service** uses a factory to aggregate **Validators**, which
+then act as a pipeline filter on the incoming command. Validators can use
+external interfaces to retrieve information about user accounts and game
+states.
+
+
+The command interface provides a method for submitting commands and getting
+a resulting status.
+
+
+See `Events`_  and `Client Query Service`_ for referenced interfaces.
 
 
 Users and Authentication
@@ -315,6 +393,39 @@ Game Logic
         translate(Position, GameState) []Position
     }
 
+    Piece o-- "n" Move
+
+    class Position {
+        rank
+        file
+    }
+
+    class TurnNumber {
+    }
+
+    interface GameStateInterface {
+        NewGameState(turn TurnNumber, map[Position]Piece, unmovedPositions []Position)
+        TurnNumber() TurnNumber
+        PositionWithinBounds(Position) bool
+        UnmovedPositions() []Position
+        PiecePositions() []Position
+        PieceAtPosition(Position) Piece
+        ValidMoves(Position) []Position
+    }
+
+    class GameState .up.> GameStateInterface
+
+    GameState *-- "n" Piece
+    GameState *-- "n" Move
+    GameState o-- "2" Player
+    GameState o-- "n" Position
+    GameState o-- "1" TurnNumber
+
+
+Piece and Move Organization
+```````````````````````````
+
+.. uml::
     class SafeMove {
         rankOffset
         fileOffset
@@ -362,7 +473,6 @@ Game Logic
     class Queen .up.> Piece
     class King .up.> Piece
 
-    Piece o-- Move
 
 
     Pawn o-- AdvancingMove
@@ -380,30 +490,13 @@ Game Logic
     King o-- SafeMove
     King o-- Castle
 
-    class Position {
-        rank
-        file
+    interface Piece {
+        name() str
+        player() Player
+        moves() []Move
     }
 
-    class TurnNumber {
+    interface Move {
+        translate(Position, GameState) []Position
     }
-
-    interface GameStateInterface {
-        NewGameState(turn TurnNumber, map[Position]Piece, unmovedPositions []Position)
-        TurnNumber() TurnNumber
-        PositionWithinBounds(Position) bool
-        UnmovedPositions() []Position
-        PiecePositions() []Position
-        PieceAtPosition(Position) Piece
-        ValidMoves(Position) []Position
-    }
-
-    class GameState .up.> GameStateInterface
-
-    GameState *-- "n" Piece
-    GameState *-- "n" Move
-    GameState o-- "2" Player
-    GameState o-- "n" Position
-    GameState o-- "1" TurnNumber
-
 

@@ -22,6 +22,9 @@ Physical Components
 - A front-end web application that runs in the browser and makes
   HTTP requests to the *main application*. (*client application*)
 
+Diagram
+```````
+
 .. uml::
     :scale: 70 %
 
@@ -51,13 +54,34 @@ for deployment.
 Main Application Architecture
 -----------------------------
 
-The main application separates command logic from query logic by
-using event-sourced representations of data (games.)
-Games are stored canonically as a series of events, but provide
-the abstraction of aggregation over these events. Aggregation
-is cached for performance reasons.
+The main application comprises a number of software components and facilitates
+their interactions.
 
-The purpose of this separation is to three-fold: (1) maintain records of
+From a data perspective, requests are handled by an HTTP server component and
+are filtered based on their type to the appropriate service: Authentication
+requests get passed to a **Users and Authentication** service, commands go
+to the **Client Command Service**, and queries go the **Client Query Service**,
+which translates and forwards requests to the abstract, document-level
+**System Query Service**.
+
+Commands are used to enact change upon the system, and after validation,
+generate events (**Events**), which get stored in an append-only log. Events
+are be subscribed to by a **Query Buffer**, provided by the **System Query
+Service**, which generates background tasks to calculate and cache current
+state.
+
+The **System Query Service** also calculates (and stores) state on demand,
+handling requests from the **Client Query Service** with on-the-fly
+computation of unstored answers. This service, an integral component in
+the system, calculates state and move validity by maintaining the primary
+representation of game logic and system behavior.
+
+The idea is that commands generate events, which get saved and used as the
+system of record. The system then maintains a cache/expiry system of state
+answers, a performance-minded aggregation of events into representations
+of games now and in the past.
+
+The purpose of this separation is three-fold: (1) maintain records of
 domain actions, as opposed to simply storing domain objects in their most
 current state, (2) it allows for data updates to sidestep many concurrency
 problems by having a single event log as the system-wide canonical
@@ -65,6 +89,8 @@ representation of domain objects, and (3) to allow for good system performance
 by keeping cached aggregates and reducing the need for a client application
 to wait for command results.
 
+Diagram
+```````
 .. uml::
     interface HTTP
 
@@ -149,3 +175,10 @@ to wait for command results.
     SystemQueryService -down- GameStateCache
     SystemQueryService ..> EventInterface : retrieves events from
 
+Service Management
+``````````````````
+
+Services will be managed and maintained by a system of dependency injection,
+so that requirements between components is described by interfaces, and
+the implementations of those interfaces is chosen at run-time by a
+listing of what services provide what interfaces.

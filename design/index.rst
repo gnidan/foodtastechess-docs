@@ -5,4 +5,4 @@ Design
     :maxdepth: 3
 
     architecture
-    class_diagrams
+    components
