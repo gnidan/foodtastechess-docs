@@ -42,7 +42,7 @@ In-Game Screen
         - If an activated piece is placed on a valid square then it is deactivated, and the user may not move another piece.
         - If the user captures an enemy piece the enemy piece is removed from the board and added to the captured zone.
         - If the user castles their king then the appropriate rook will move to its valid location.
-        - The user may click on a confirmed piece. The application will then provide a modal dialog that allows the user to confirm or take back their move.
+        - The user may click or drag a moved piece to reactivate it in order to change the move or place it back in its original position at the beginning of the move. Replacing the piece deactivates the piece.
         - If the user takes back a move before confirming, the game's state is returned to how it was before the user made their last move.
     - The user may not directly interact with the board if it is not their turn.
     - Once a game instance has been completed the game's state will enter one of complete-won, complete-loss, or complete-draw.
@@ -74,6 +74,7 @@ In-Game Screen
     - If the user selects this button the application will present a modal dialog requesting the user to confirm their selection.
         - The user may accept the concession at this dialog, which will set the game's state to complete-loss.
         - Otherwise, not confirming at this dialog will close the modal dialog.
+- The application provides a button that allows the user to confirm their move.
 - The application provides a button that allows the user to offer a draw to their opponent.
 - The application provides a button that allows the user to return to the Lobby Screen.
 
