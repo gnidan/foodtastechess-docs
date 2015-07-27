@@ -6,3 +6,4 @@ Design
 
     architecture
     class_diagrams
+    client_application
