@@ -106,7 +106,7 @@ New Game Screen
     *Behavior*
         If the user chooses "White" or "Black" the application will assign the
         opposing color to the opponent. If the user chooses "Random" then the
-        user will be arbitrarilly assigned "White" or "Black", and the opponent
+        user will be arbitrarily assigned "White" or "Black", and the opponent
         will be assigned the opposing color.
 
     *Default*
@@ -241,7 +241,7 @@ In-Game Screen
 
     *Behavior*
         Selecting a promotion piece replaces the corresponding moved pawn
-        piece with the appropiate promotion piece. The promotion piece is then
+        piece with the appropriate promotion piece. The promotion piece is then
         considered to be the "moved piece".
 
 **Game Banner**
@@ -272,7 +272,7 @@ In-Game Screen
 
     *Behavior*
         Selecting any button other than full forward puts the game into
-        tracking state. In this state the user can not interract with the
+        tracking state. In this state the user can not interact with the
         **Game Board**. The navigation buttons are used to scrub the game's
         history. The full reverse button shows the game in its initial state.
         The back button shows the game in its previous state. The forward
@@ -302,7 +302,7 @@ In-Game Screen
         If the user has made a valid move and **Toggle Manual Move
         Confirmation** is on then the button is activated. Selecting the
         button when active posts the move to the server. Otherwise, the
-        button is visible but greyed out, indicating that it is not active.
+        button is visible but grayed out, indicating that it is not active.
 
 **Offer Draw**
     *Type*
