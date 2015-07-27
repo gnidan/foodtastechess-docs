@@ -4,25 +4,52 @@ System Architecture
 Overview
 --------
 
-**foodtastechess** is architected as a web service, comprising several
-physical components, most centrally of which is a server application.
-This main application uses a model of *Command-Query Responsibility
-Separation*, and is roughly divided into three discrete layers.
+**foodtastechess** is architected as a client-server system, built around
+a command/query-separated request system.
+
+It comprises a server application designed for the Go programming language, a
+thin browser client to use the React Javascript framework, and two
+database systems: a MySQL server and a MongoDB instance.
 
 
 Physical Components
-```````````````````
+-------------------
 
 - A long-running server process (*main application*)
-- A relational database used as an append-only log (*events DB**)
-- A documents database used as a cache for event aggregation (*game state
+- A collection of MySQL tables used as an append-only log (*events DB*)
+- A documents database (MongoDB) used as a cache for event aggregation (*game state
   cache*)
 - A front-end web application that runs in the browser and makes
   HTTP requests to the *main application*. (*client application*)
 
+.. uml::
+    :scale: 70 %
 
-CQRS
-````
+    [Client Application] ..> HTTP
+    HTTP - [Main Application]
+    node "MySQL Server" {
+        database UsersDB
+        database EventsDB
+    }
+
+    node "MongoDB" {
+        database GameStateCache
+    }
+
+    [Main Application] ..> UsersDB
+    [Main Application] ..> EventsDB
+    [Main Application] ..> GameStateCache
+
+System Operations
+`````````````````
+
+Physical components will be managed using Docker containers. Third-party cloud
+services will be used to host and run the containers. Containers will be used
+to facilitate process management and dependencies, requiring minimal overhead
+for deployment.
+
+Main Application Architecture
+-----------------------------
 
 The main application separates command logic from query logic by
 using event-sourced representations of data (games.)
@@ -37,50 +64,6 @@ problems by having a single event log as the system-wide canonical
 representation of domain objects, and (3) to allow for good system performance
 by keeping cached aggregates and reducing the need for a client application
 to wait for command results.
-
-
-Application Layers
-``````````````````
-
-HTTP layer
-    Responsible for interpreting HTTP requests and
-    marshalling responses. It forwards the interpreted
-    requests to the Request layer and returns the results
-    as formatted HTTP responses.
-
-Request layer
-    Handles commands, queries, and authentication logic.
-    It is responsible for validating commands, and communicates
-    with the Event and Aggregation layer by issuing events and
-    retrieving state.  It is also responsible for augmenting aggregate
-    state results with user profile information.
-
-Event and Aggregation layer
-    Manages storage and aggregation of events. It provides two
-    interfaces to the Request layer: one for accepting new events
-    and one for returning aggregate state information.
-
-
-Component Diagrams
-------------------
-
-Physical Components
-```````````````````
-
-.. uml::
-    :scale: 70 %
-
-    [Client Application] ..> HTTP
-    HTTP - [Main Application]
-    database UsersDB
-    database EventsDB
-    database GameStateCache
-    [Main Application] ..> UsersDB
-    [Main Application] ..> EventsDB
-    [Main Application] ..> GameStateCache
-
-Main Application Architecture
-`````````````````````````````
 
 .. uml::
     interface HTTP
