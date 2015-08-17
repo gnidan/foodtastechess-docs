@@ -4,6 +4,7 @@ Overview of Client Tests
 +------+-----------------+--------------+------------------+-------------------+-----------------+----------+
 |  ID  | Test Desciption | Requirement  | Execution Steps  | Expected Results  | Actual Results  | Comments |
 +===========================================================================================================+
+|      |                 |              |                  |                   |                 |          |
 |  C1  | View active     | Users will   | 1. Authenticate  | Users see all     | It will be as   | Code     |
 |      |   games         | be able to   | 2. Visit main    | their active      | expected        | Needed   |
 |      |                 | log in and   |    screen        | and inactive      |                 |          |
