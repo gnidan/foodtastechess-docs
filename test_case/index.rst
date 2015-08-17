@@ -6,3 +6,4 @@ Design
 
     client_tests
     server_tests
+    non_func
