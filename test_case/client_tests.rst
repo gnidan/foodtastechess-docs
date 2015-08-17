@@ -28,9 +28,9 @@ Overview of Client Tests
 |      |                 | continue or  |                  |                   |                 |          |
 |      |                 | view         |                  |                   |                 |          |
 +------+-----------------+--------------+------------------+-------------------+-----------------+----------+
-|  C4  | Available to    |              |                  |                   |                 |          |
-|      | user on their   |              |                  |                   |                 |          |
-|      | turn:           |              |                  |                   |                 |          |
+|  C4  | Available to    |                                                                                  |
+|      | user on their   |                                                                                  |
+|      | turn:           |                                                                                  |
 +------+-----------------+--------------+------------------+-------------------+-----------------+----------+
 | C4.1 | Movement 1      | Moving a     | 1. It is the     | The piece is      | It will be as   | Code     |
 |      |                 | piece by     |    user's move   | moved             | expected        | Needed   |
@@ -186,7 +186,7 @@ Lobby Screen
 |      |                 | option for   |    at lobby     |                  |                 |          |
 |      |                 | the user to  |    screen       |                  |                 |          |
 |      |                 | create a new |                 |                  |                 |          |
-|      |                 |  game, which |                 |                  |                 |          |
+|      |                 | game, which  |                 |                  |                 |          |
 |      |                 | will take    |                 |                  |                 |          |
 |      |                 | the user to  |                 |                  |                 |          |
 |      |                 | the New Game |                 |                  |                 |          |
@@ -211,7 +211,7 @@ New Game Screen
 |      |                 | or no        |                 |                  |                |           |
 |      |                 | preference   |                 |                  |                |           |
 +------+-----------------+--------------+-----------------+------------------+----------------+-----------+
-|  N2  | Game invite     | Repeat of C5 |                 |                  |                |           |
+|  N2  | Game invite     | Repeat of C5                                                                   |
 +------+-----------------+--------------+-----------------+------------------+----------------+-----------+
 |  N3  | User is sent to | The app      | 1. Game is      | Game starts      | Nothing at     | Code      |
 |      | game            | provides a   |    started      |                  | moment         | Needed    |
