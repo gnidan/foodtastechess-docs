@@ -174,7 +174,7 @@ Recording of Moves
 |      |                 | along with  |                 |                  |                | state can|
 |      |                 | the all     |                 |                  |                | be       |
 |      |                 | board states|                 |                  |                | recreated|
-|      |                 |  using      |                 |                  |                | from     |
+|      |                 | using       |                 |                  |                | from     |
 |      |                 | Edward’s    |                 |                  |                | moves    |
 |      |                 | Notation    |                 |                  |                |          |
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
