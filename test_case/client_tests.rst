@@ -226,4 +226,101 @@ New Game Screen
 |      |                 | the new game |                 |                  |                |           |
 +------+-----------------+--------------+-----------------+------------------+----------------+-----------+
 
+In-Game Screen
+==============
 
+Due to the numerous tests that can be run for this section, it has been truncated to show only the bold requirements from the requirements document. All other requirements are taken care of by unit testing.
+
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+|  ID   | Test Desciption | Requirement  | Execution Steps  | Expected Results  | Actual Results  | Comments |
++=======+=================+==============+==================+===================+=================+==========+
+| IGS1  | Board State     | The app      | 1. Open a game   | The game state    | The game state  | Client   |
+|       |                 | displays a   |                  |                   |                 | has no   |
+|       |                 | game board   |                  |                   |                 | logic    |
+|       |                 | that         |                  |                   |                 | you      |
+|       |                 | represents   |                  |                   |                 | either   |
+|       |                 | the current  |                  |                   |                 | see it   |
+|       |                 | game state   |                  |                   |                 | or not   |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS2  | Board and       | The game     | 1. Open a game   | Viewing of the    | Viewing of the  |          |
+|       | Pieces          | board        |                  | board along with  | board along     |          |
+|       |                 | displays the |                  | the pieces        | with the pieces |          |
+|       |                 | chess board, |                  |                   |                 |          |
+|       |                 | the user’s   |                  |                   |                 |          |
+|       |                 | game pieces, |                  |                   |                 |          |
+|       |                 | and the      |                  |                   |                 |          |
+|       |                 | opponent’s   |                  |                   |                 |          |
+|       |                 | game pieces  |                  |                   |                 |          |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS3  | Piece Movement  | The user may | See C4.1 and C4.2                                                 |
+|       |                 | move a piece |                                                                   |
+|       |                 | if it is     |                                                                   |
+|       |                 | their turn   |                                                                   |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS4  | Draw Offer      | If the       | See C4.3                                                          |
+|       |                 | opponent     |                                                                   |
+|       |                 | offers a     |                                                                   |
+|       |                 | draw the app |                                                                   |
+|       |                 | will display |                                                                   |
+|       |                 | a modal      |                                                                   |
+|       |                 | dialog       |                                                                   |
+|       |                 | asking if    |                                                                   |
+|       |                 | the user     |                                                                   |
+|       |                 | wants to     |                                                                   |
+|       |                 | accept the   |                                                                   |
+|       |                 | draw         |                                                                   |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS5  | Move History    | The app      | 1. Find History  | User can see game | User sees the   |          |
+|       |                 | provides a   |    Pane          | at various        | history         |          |
+|       |                 | navigation   | 2. View game at  | points            |                 |          |
+|       |                 | bar that     |    any point     |                   |                 |          |
+|       |                 | allows the   |                  |                   |                 |          |
+|       |                 | user to page |                  |                   |                 |          |
+|       |                 | through      |                  |                   |                 |          |
+|       |                 | previous     |                  |                   |                 |          |
+|       |                 | moves        |                  |                   |                 |          |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS6  | Algrebraic      | The app      | 1. Find move     | Previous moves    | Previous moves  |          |
+|       | History         | provides a   |    list          | are shown         | are shown       |          |
+|       |                 | scrollable   |                  |                   |                 |          |
+|       |                 | window that  |                  |                   |                 |          |
+|       |                 | displays the |                  |                   |                 |          |
+|       |                 | game’s moves |                  |                   |                 |          |
+|       |                 | in chess     |                  |                   |                 |          |
+|       |                 | algebraic    |                  |                   |                 |          |
+|       |                 | notation     |                  |                   |                 |          |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS7  | Move Confirm-   | The app      | 1. Attempt to    | Unless toggled    | Confirmation is |          |
+|       | ation           | provides a   |    move          | off, confirmation | asked           |          |
+|       |                 | button that  |                  | will be asked     |                 |          |
+|       |                 | toggles      |                  |                   |                 |          |
+|       |                 | manual move  |                  |                   |                 |          |
+|       |                 | confirmation |                  |                   |                 |          |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS8  | Valid Moves     | The app      | See C4.1                                                          |
+|       | Highlight       | provides a   |                                                                   |
+|       |                 | button that  |                                                                   |
+|       |                 | toggles      |                                                                   |
+|       |                 | highlighting |                                                                   |
+|       |                 | valid moves  |                                                                   |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS9  | Concession      | The app      | 1. In, game the  | Button is there   | Button is there |          |
+|       | Button          | provides a   |    button exists |                   |                 |          |
+|       |                 | button that  |                  |                   |                 |          |
+|       |                 | allows the   |                  |                   |                 |          |
+|       |                 | user to      |                  |                   |                 |          |
+|       |                 | concede the  |                  |                   |                 |          |
+|       |                 | game         |                  |                   |                 |          |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+| IGS10 | Concession      | If the user  | 1. User clicks   | User resigns      | Code needed     |          |
+|       | button usage    | selects this |    concession    | only after        |                 |          |
+|       |                 |  button the  |    button        | confirmation      |                 |          |
+|       |                 | app will     |    while         |                   |                 |          |
+|       |                 | present a    |    attempting to |                   |                 |          |
+|       |                 | modal dialog |    resign        |                   |                 |          |
+|       |                 | requesting   | 2. They are      |                   |                 |          |
+|       |                 | the user to  |    presented     |                   |                 |          |
+|       |                 | confirm      |    with a        |                   |                 |          |
+|       |                 | their        |    confirmation  |                   |                 |          |
+|       |                 | selection    |                  |                   |                 |          |
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
