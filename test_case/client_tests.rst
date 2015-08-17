@@ -314,7 +314,7 @@ Due to the numerous tests that can be run for this section, it has been truncate
 +-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
 | IGS10 | Concession      | If the user  | 1. User clicks   | User resigns      | Code needed     |          |
 |       | button usage    | selects this |    concession    | only after        |                 |          |
-|       |                 |  button the  |    button        | confirmation      |                 |          |
+|       |                 | button the   |    button        | confirmation      |                 |          |
 |       |                 | app will     |    while         |                   |                 |          |
 |       |                 | present a    |    attempting to |                   |                 |          |
 |       |                 | modal dialog |    resign        |                   |                 |          |
