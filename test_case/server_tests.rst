@@ -32,6 +32,10 @@ Recieving of Moves
 |      |                 | the client   |                 |                  |                 |          |
 |      |                 | may make     |                 |                  |                 |          |
 +------+-----------------+--------------+-----------------+------------------+-----------------+----------+
+
++------+-----------------+--------------+-----------------+------------------+-----------------+----------+
+|  ID  | Test Desciption | Requirement  | Execution Steps | Expected Results | Actual Results  | Comments |
++======+=================+==============+=================+==================+=================+==========+
 |  R3  | Recreate games  | Invalid      | 1. Client       | Game is resumed  | Nothing at      | Code     |
 |      |                 | games are    |    requests a   | as if it was in  | moment          | Needed   |
 |      |                 | not kept in  |    games not in | memory           |                 |          |
@@ -77,15 +81,15 @@ Validation of Moves
 |      |                  | with the     |                  |                   |                |          |
 |      |                  | FIDE         |                  |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-|  V3  | Special Valid    | The server                                                                    |
-|      | Moves            | must                                                                          |
-|      |                  | properly                                                                      |
-|      |                  | account for                                                                   |
-|      |                  | special                                                                       |
-|      |                  | rules                                                                         |
-|      |                  | including,                                                                    |
-|      |                  | but not                                                                       |
-|      |                  | limited to:                                                                   |
+|  V3  | Special Valid    | The server                                                                      |
+|      | Moves            | must                                                                            |
+|      |                  | properly                                                                        |
+|      |                  | account for                                                                     |
+|      |                  | special                                                                         |
+|      |                  | rules                                                                           |
+|      |                  | including,                                                                      |
+|      |                  | but not                                                                         |
+|      |                  | limited to:                                                                     |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
 | V3.1 | En Passant       | En Passant   | 1. Board         | App allows user   | Nothing at     | Code     |
 |      |                  |              |    position is   | to use En Passant | Moment         | Needed   |
@@ -105,13 +109,18 @@ Validation of Moves
 |      |                  |              |    enables       |                   |                |          |
 |      |                  |              |    Promotion     |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
+
+
++------+------------------+--------------+------------------+-------------------+----------------+----------+
+|  ID  | Test Desciption  | Requirement  | Execution Steps  | Expected Results  | Actual Results | Comments |
++======+==================+==============+==================+===================+================+==========+
 | V3.4 | Threefold        | Threefold    | 1. Board         | The game is a     | Nothing at     | Code     |
 |      | Repetition       | Repetition   |    position is   | draw              | Moment         | Needed   |
 |      |                  |              |    that of       |                   |                |          |
 |      |                  |              |    threefold     |                   |                |          |
 |      |                  |              |    Repition      |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-|  V5  | Move Control     | The client   | 1. Client tries  | Server prevents   | Nothing at     | Code     |
+|  V4  | Move Control     | The client   | 1. Client tries  | Server prevents   | Nothing at     | Code     |
 |      |                  | may not make |    to make an    | client            | moment         | Needed   |
 |      |                  | any moves    |    illegal move  |                   |                |          |
 |      |                  | not given    |                  |                   |                |          |

@@ -32,6 +32,13 @@ Overview of Client Tests
 |      | user on their   |                                                                                  |
 |      | turn:           |                                                                                  |
 +------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+
+
+
+
++------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+|  ID  | Test Desciption | Requirement  | Execution Steps  | Expected Results  | Actual Results  | Comments |
++======+=================+==============+==================+===================+=================+==========+
 | C4.1 | Movement 1      | Moving a     | 1. It is the     | The piece is      | It will be as   | Code     |
 |      |                 | piece by     |    user's move   | moved             | expected        | Needed   |
 |      |                 | clicking on  | 2. They click    |                   |                 |          |
@@ -66,6 +73,10 @@ Overview of Client Tests
 |      |                 | are ready    |    move          |                   |                 |          |
 |      |                 | to play      |                  |                   |                 |          |
 +------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+
++------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+|  ID  | Test Desciption | Requirement  | Execution Steps  | Expected Results  | Actual Results  | Comments |
++======+=================+==============+==================+===================+=================+==========+
 | C4.5 | Resign          | Resign from  | 1. It is the     | Opponent is       | It will be as   | Code     |
 |      |                 | a game       |    user's move   | given a win       | expected        | Needed   |
 |      |                 |              | 2. They click    |                   |                 |          |
@@ -304,6 +315,10 @@ Due to the numerous tests that can be run for this section, it has been truncate
 |       |                 | highlighting |                                                                   |
 |       |                 | valid moves  |                                                                   |
 +-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+
++-------+-----------------+--------------+------------------+-------------------+-----------------+----------+
+|  ID   | Test Desciption | Requirement  | Execution Steps  | Expected Results  | Actual Results  | Comments |
++=======+=================+==============+==================+===================+=================+==========+
 | IGS9  | Concession      | The app      | 1. In, game the  | Button is there   | Button is there |          |
 |       | Button          | provides a   |    button exists |                   |                 |          |
 |       |                 | button that  |                  |                   |                 |          |
