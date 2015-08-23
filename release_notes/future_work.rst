@@ -4,7 +4,7 @@ Future Work
 +------+----------------------------------------------------------------------+
 |  ID  |                            Description                               |
 +======+======================================================================+
-|  FW1 | **Redundant Resources and Load Balancing** |                         |
+|  FW1 | **Redundant Resources and Load Balancing** ::                        |
 |      | We would to make all resources redundant so that our service can     |
 |      | scale so instead of 1 client, server, and DB we could divide our     |
 |      | services.  Docker containers allow for the services to be installed  |
