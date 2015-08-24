@@ -56,6 +56,7 @@ design_doc = 'design/index'
 guide_doc = 'guide/index'
 test_doc = 'test_case/index'
 release_doc = 'release_notes/index'
+install_doc = 'install/index'
 
 # General information about the project.
 project = u'foodtastechess'
@@ -263,6 +264,8 @@ latex_documents = [
     (test_doc, 'test_case.tex', u'foodtastechess Test Case Document',
      author, 'manual'),
     (release_doc, 'release_notes.tex', u'foodtastechess Release Notes',
+     author, 'manual'),
+    (install_doc, 'install.tex', u'foodtastechess Install Guide',
      author, 'manual'),
 #  (master_doc, 'foodtastechess.tex', u'foodtastechess Documentation',
 #   u'team food taste', 'manual'),

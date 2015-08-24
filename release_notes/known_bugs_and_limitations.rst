@@ -19,7 +19,10 @@ Known Bugs
 |      |                                                                      |
 |      | Does not notify and Checkmate does not end game                      |
 +------+----------------------------------------------------------------------+
-
+|  KB4 | **ThreeFold Repetition**                                             |
+|      |                                                                      |
+|      | Game does not properly end                                           |
++------+----------------------------------------------------------------------+
 
 Limitations
 ------------

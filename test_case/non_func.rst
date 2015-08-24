@@ -193,15 +193,15 @@ Performance
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
 |  ID  | Test Desciption | Requirement | Execution Steps | Expected Results | Actual Results | Comments |
 +======+=================+=============+=================+==================+================+==========+
-|  PE1 | Move Frequency  | This web    | 1. Lots of      | If less than 50  | Untested       |          |
-|      |                 | app should  |    moves        | moves/second,    |                |          |
+|  PE1 | Move Frequency  | This web    | 1. Lots of      | If less than 50  | Correct for    |          |
+|      |                 | app should  |    moves        | moves/second,    | current volume |          |
 |      |                 | support at  |    directed at  | then it should   |                |          |
 |      |                 | least 50    |    server       | be fine          |                |          |
 |      |                 | moves a     |                 |                  |                |          |
 |      |                 | second      |                 |                  |                |          |
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
-|  PE2 | Latency         | The client  | 1. Standard     | No unexplained   | Untested       |          |
-|      |                 | should not  |    client       | slowdowns        |                |          |
+|  PE2 | Latency         | The client  | 1. Standard     | No unexplained   | Correct for    |          |
+|      |                 | should not  |    client       | slowdowns        | current volume |          |
 |      |                 | appear to   |    usage        |                  |                |          |
 |      |                 | experience  |                 |                  |                |          |
 |      |                 | any latency |                 |                  |                |          |
@@ -275,9 +275,9 @@ Quality
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
 |  ID  | Test Desciption | Requirement | Execution Steps | Expected Results | Actual Results | Comments |
 +======+=================+=============+=================+==================+================+==========+
-|  Q1  | Bug-free        | This web    |                                                     | Not      |
-|      |                 | app should  |                                                     | shipped  |
-|      |                 | not ship    |                                                     | yet      |
+|  Q1  | Bug-free        | This web    |                                                     |          |
+|      |                 | app should  |                                                     |          |
+|      |                 | not ship    |                                                     |          |
 |      |                 | with any    |                                                     |          |
 |      |                 | known bugs  |                                                     |          |
 |      |                 | that cause  |                                                     |          |
@@ -326,7 +326,7 @@ Response Time
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
 |  ID  | Test Desciption | Requirement | Execution Steps | Expected Results | Actual Results | Comments |
 +======+=================+=============+=================+==================+================+==========+
-| RT1  | Time allowance  | This web    | 1. Query server | Handles it fine  | Not tested     |          |
+| RT1  | Time allowance  | This web    | 1. Query server | Handles it fine  | Correct        |          |
 |      |                 | app should  |    continually  |                  |                |          |
 |      |                 | return      |                 |                  |                |          |
 |      |                 | results in  |                 |                  |                |          |
@@ -421,8 +421,8 @@ Testability
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
 |  ID  | Test Desciption | Requirement | Execution Steps | Expected Results | Actual Results | Comments |
 +======+=================+=============+=================+==================+================+==========+
-|  TE1 | Unit Tests      | This web    | 1. Run unit     | If they pass app | Unit tests     |          |
-|      |                 | app and its |    tests        | should be good   | are going fine |          |
+|  TE1 | Unit Tests      | This web    | 1. Run unit     | If they pass app | Unit test      |          |
+|      |                 | app and its |    tests        | should be good   | passed         |          |
 |      |                 | many parts  |                 | to go            |                |          |
 |      |                 | should be   |                 |                  |                |          |
 |      |                 | highly      |                 |                  |                |          |

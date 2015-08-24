@@ -16,15 +16,15 @@ Recieving of Moves
 |      |                 | games        |    second due to|                  |                 |          |
 |      |                 |              |    demand       |                  |                 |          |
 +------+-----------------+--------------+-----------------+------------------+-----------------+----------+
-| R2.1 | Refresh game    | Server must  | 1. Client sends | Server responds  | Nothing at      | Code     |
-|      | state           | respond with |    move         | with information | moment          | Needed   |
+| R2.1 | Refresh game    | Server must  | 1. Client sends | Server responds  | Correct         |          |
+|      | state           | respond with |    move         | with information |                 |          |
 |      |                 | the updated  |                 | for next move    |                 |          |
 |      |                 | game state   |                 |                  |                 |          |
 |      |                 | after a      |                 |                  |                 |          |
 |      |                 | valid move   |                 |                  |                 |          |
 +------+-----------------+--------------+-----------------+------------------+-----------------+----------+
-| R2.2 | Refresh valid   | The game     | 1. Client sends | Server responds  | Nothing at      | Code     |
-|      | moves           | state will   |    move         | with information | moment          | Needed   |
+| R2.2 | Refresh valid   | The game     | 1. Client sends | Server responds  | Correct         |          |
+|      | moves           | state will   |    move         | with information |                 |          |
 |      |                 | be           |                 | for next move    |                 |          |
 |      |                 | accompanied  |                 |                  |                 |          |
 |      |                 | by all valid |                 |                  |                 |          |
@@ -36,8 +36,8 @@ Recieving of Moves
 +------+-----------------+--------------+-----------------+------------------+-----------------+----------+
 |  ID  | Test Desciption | Requirement  | Execution Steps | Expected Results | Actual Results  | Comments |
 +======+=================+==============+=================+==================+=================+==========+
-|  R3  | Recreate games  | Invalid      | 1. Client       | Game is resumed  | Nothing at      | Code     |
-|      |                 | games are    |    requests a   | as if it was in  | moment          | Needed   |
+|  R3  | Recreate games  | Invalid      | 1. Client       | Game is resumed  | Correct         |          |
+|      |                 | games are    |    requests a   | as if it was in  |                 |          |
 |      |                 | not kept in  |    games not in | memory           |                 |          |
 |      |                 | memory, but  |    memory       |                  |                 |          |
 |      |                 | instead      |                 |                  |                 |          |
@@ -45,8 +45,8 @@ Recieving of Moves
 |      |                 | with each    |                 |                  |                 |          |
 |      |                 | request      |                 |                  |                 |          |
 +------+-----------------+--------------+-----------------+------------------+-----------------+----------+
-|  R4  | Same accounts   | Moves must   | 1. Client       | They are         | They are        | Code     |
-|      |                 | be made by   |    attempts to  | prevented        | prevented       | Needed   |
+|  R4  | Same accounts   | Moves must   | 1. Client       | They are         | They are        |          |
+|      |                 | be made by   |    attempts to  | prevented        | prevented       |          |
 |      |                 | the same two |    play in a    |                  |                 |          |
 |      |                 | Google       |    game that it |                  |                 |          |
 |      |                 | authed       |    is not in    |                  |                 |          |
@@ -65,8 +65,8 @@ Validation of Moves
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
 |  ID  | Test Desciption  | Requirement  | Execution Steps  | Expected Results  | Actual Results | Comments |
 +======+==================+==============+==================+===================+================+==========+
-|  V1  | Send Valid Moves | The server   | 1. Client is in  | Client recieves   | Nothing at     | Code     |
-|      |                  | will calc    |    a position to | a list of valid   | moment         | Needed   |
+|  V1  | Send Valid Moves | The server   | 1. Client is in  | Client recieves   | Correct        |          |
+|      |                  | will calc    |    a position to | a list of valid   |                |          |
 |      |                  | all valid    |    play          | moves             |                |          |
 |      |                  | moves for a  |                  |                   |                |          |
 |      |                  | given game   |                  |                   |                |          |
@@ -74,8 +74,8 @@ Validation of Moves
 |      |                  | send them to |                  |                   |                |          |
 |      |                  | the client   |                  |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-|  V2  | Correct Valid    | The server   | 1. Moves are     | All moves are     | Code is being  | Code     |
-|      | Moves            | must calc    |    recieved      | valid             | written        | Needed   |
+|  V2  | Correct Valid    | The server   | 1. Moves are     | All moves are     | Correct        |          |
+|      | Moves            | must calc    |    recieved      | valid             |                |          |
 |      |                  | the moves in | 2. Check if they |                   |                |          |
 |      |                  | accordance   |    are           |                   |                |          |
 |      |                  | with the     |                  |                   |                |          |
@@ -91,20 +91,20 @@ Validation of Moves
 |      |                  | but not                                                                         |
 |      |                  | limited to:                                                                     |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-| V3.1 | En Passant       | En Passant   | 1. Board         | App allows user   | Nothing at     | Code     |
-|      |                  |              |    position is   | to use En Passant | Moment         | Needed   |
+| V3.1 | En Passant       | En Passant   | 1. Board         | App allows user   | Correct        |          |
+|      |                  |              |    position is   | to use En Passant |                |          |
 |      |                  |              |    that which    |                   |                |          |
 |      |                  |              |    enables En    |                   |                |          |
 |      |                  |              |    Passant       |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-| V3.2 | Castling         | Castling     | 1. Board         | App allows user   | Nothing at     | Code     |
-|      |                  |              |    position is   | to Castle         | Moment         | Needed   |
+| V3.2 | Castling         | Castling     | 1. Board         | App allows user   | Correct        |          |
+|      |                  |              |    position is   | to Castle         |                |          |
 |      |                  |              |    that which    |                   |                |          |
 |      |                  |              |    enables       |                   |                |          |
 |      |                  |              |    Castling      |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-| V3.3 | Promotion        | Promotion    | 1. Board         | App allows user   | Nothing at     | Code     |
-|      |                  |              |    position is   | to Promote        | Moment         | Needed   |
+| V3.3 | Promotion        | Promotion    | 1. Board         | App allows user   | Correct        |          |
+|      |                  |              |    position is   | to Promote        |                |          |
 |      |                  |              |    that which    |                   |                |          |
 |      |                  |              |    enables       |                   |                |          |
 |      |                  |              |    Promotion     |                   |                |          |
@@ -114,14 +114,14 @@ Validation of Moves
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
 |  ID  | Test Desciption  | Requirement  | Execution Steps  | Expected Results  | Actual Results | Comments |
 +======+==================+==============+==================+===================+================+==========+
-| V3.4 | Threefold        | Threefold    | 1. Board         | The game is a     | Nothing at     | Code     |
-|      | Repetition       | Repetition   |    position is   | draw              | Moment         | Needed   |
-|      |                  |              |    that of       |                   |                |          |
+| V3.4 | Threefold        | Threefold    | 1. Board         | The game is a     | Incorrect      | Error on |
+|      | Repetition       | Repetition   |    position is   | draw              |                | Server   |
+|      |                  |              |    that of       |                   |                | Side     |
 |      |                  |              |    threefold     |                   |                |          |
 |      |                  |              |    Repition      |                   |                |          |
 +------+------------------+--------------+------------------+-------------------+----------------+----------+
-|  V4  | Move Control     | The client   | 1. Client tries  | Server prevents   | Nothing at     | Code     |
-|      |                  | may not make |    to make an    | client            | moment         | Needed   |
+|  V4  | Move Control     | The client   | 1. Client tries  | Server prevents   | Correct        |          |
+|      |                  | may not make |    to make an    | client            |                |          |
 |      |                  | any moves    |    illegal move  |                   |                |          |
 |      |                  | not given    |                  |                   |                |          |
 |      |                  | by the       |                  |                   |                |          |
@@ -135,8 +135,8 @@ Recording of Moves
 +------+-----------------+--------------+-----------------+-------------------+----------------+----------+
 |  ID  | Test Desciption | Requirement  | Execution Steps | Expected Results  | Actual Results | Comments |
 +======+=================+==============+=================+===================+================+==========+
-|  RM1 | Game Lock       | Upon         | 1. Client sends | The second move   | Nothing yet    | Code     |
-|      |                 | receiving a  |    two moves in | does not go       |                | Needed   |
+|  RM1 | Game Lock       | Upon         | 1. Client sends | The second move   | Correct        |          |
+|      |                 | receiving a  |    two moves in | does not go       |                |          |
 |      |                 | prospective  |    rapid        | through           |                |          |
 |      |                 | move, the    |    succession   |                   |                |          |
 |      |                 | server must  |                 |                   |                |          |
@@ -149,8 +149,8 @@ Recording of Moves
 |      |                 | have been    |                 |                   |                |          |
 |      |                 | updated      |                 |                   |                |          |
 +------+-----------------+--------------+-----------------+-------------------+----------------+----------+
-|  RM2 | Server Record   | The server   | 1. Client sends | Move is stored in | Nothing yet    | Code     |
-|      |                 | will send    |    valid move   | database          |                | Needed   |
+|  RM2 | Server Record   | The server   | 1. Client sends | Move is stored in | Correct        |          |
+|      |                 | will send    |    valid move   | database          |                |          |
 |      |                 | changes in   | 2. Server       |                   |                |          |
 |      |                 | game state   |    accepts      |                   |                |          |
 |      |                 | to the       | 3. Server sends |                   |                |          |
@@ -166,27 +166,27 @@ Recording of Moves
 ------------------
 
 
-+------+-----------------+-------------+-----------------+------------------+----------------+----------+
-|  ID  | Test Desciption | Requirement | Execution Steps | Expected Results | Actual Results | Comments |
-+======+=================+=============+=================+==================+================+==========+
-|  DR1 | Database saves  | The database| 1. Client sends | That move and    | Correct        |          |
-|      | approved moves  | will accept |    valid move   | only that move   |                |          |
-|      |                 | moves that  | 2. Server       | is saved         |                |          |
-|      |                 | have been   |    accepts      |                  |                |          |
-|      |                 | approved the| 3. Server sends |                  |                |          |
-|      |                 | server      |    to DB        |                  |                |          |
-+------+-----------------+-------------+-----------------+------------------+----------------+----------+
-|  DR2 | Database record | The database| 1. Query DB     | Game states and  | Only move      | Saves    |
-|      | game states and | will record |    for a given  | move history     | history stored | disk     |
-|      | move history    | the move    |    game         | returned         |                | space and|
-|      |                 | history     |                 |                  |                | board    |
-|      |                 | along with  |                 |                  |                | state can|
-|      |                 | the all     |                 |                  |                | be       |
-|      |                 | board states|                 |                  |                | recreated|
-|      |                 | using       |                 |                  |                | from     |
-|      |                 | Edward’s    |                 |                  |                | moves    |
-|      |                 | Notation    |                 |                  |                |          |
-+------+-----------------+-------------+-----------------+------------------+----------------+----------+
++------+-----------------+-------------+-----------------+------------------+----------------+-----------+
+|  ID  | Test Desciption | Requirement | Execution Steps | Expected Results | Actual Results | Comments  |
++======+=================+=============+=================+==================+================+===========+
+|  DR1 | Database saves  | The database| 1. Client sends | That move and    | Correct        |           |
+|      | approved moves  | will accept |    valid move   | only that move   |                |           |
+|      |                 | moves that  | 2. Server       | is saved         |                |           |
+|      |                 | have been   |    accepts      |                  |                |           |
+|      |                 | approved the| 3. Server sends |                  |                |           |
+|      |                 | server      |    to DB        |                  |                |           |
++------+-----------------+-------------+-----------------+------------------+----------------+-----------+
+|  DR2 | Database record | The database| 1. Query DB     | Game states and  | Only move      | Saves     |
+|      | game states and | will record |    for a given  | move history     | history stored | disk      |
+|      | move history    | the move    |    game         | returned         |                | space and |
+|      |                 | history     |                 |                  |                | board     |
+|      |                 | along with  |                 |                  |                | state can |
+|      |                 | the all     |                 |                  |                | be        |
+|      |                 | board states|                 |                  |                | recreated |
+|      |                 | using       |                 |                  |                | from      |
+|      |                 | Edward’s    |                 |                  |                | moves     |
+|      |                 | Notation    |                 |                  |                |           |
++------+-----------------+-------------+-----------------+------------------+----------------+-----------+
 
 Retrieving State
 ----------------
@@ -206,9 +206,9 @@ Retrieving State
 |      |                 | list and the|                 |                  |                |          |
 |      |                 | move list   |                 |                  |                |          |
 +------+-----------------+-------------+-----------------+------------------+----------------+----------+
-|  RS2 | Crash Resistant | After a     | 1. Crash the    | Data is as it was| Not tested     | Server   |
-|      |                 | crash, the  |    server       | on last write    |                | has not  |
-|      |                 | database    |                 |                  |                | crashed  |
+|  RS2 | Crash Resistant | After a     | 1. Crash the    | Data is as it was| Correct        | Last     |
+|      |                 | crash, the  |    server       | on last write    |                | known    |
+|      |                 | database    |                 |                  |                | state    |
 |      |                 | will        |                 |                  |                |          |
 |      |                 | retrieve the|                 |                  |                |          |
 |      |                 | last known  |                 |                  |                |          |
