@@ -14,6 +14,8 @@ Contents:
    requirements/index
    design/index
    guide/index
+   test_case/index
+   release_notes/index
 
 
 

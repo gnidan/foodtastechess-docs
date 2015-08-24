@@ -8,4 +8,5 @@ Release Notes
     new_features
     bug_fixes
     known_bugs_and_limitations
+    api
     future_work
