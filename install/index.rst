@@ -6,6 +6,13 @@ Getting Started
 
  - Please make sure that you are not currently running a web server on port 80.
  - Install docker onto your machine and be in the docker group
+		1. sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
+
+		2. sudo sh -c "echo deb http://get.docker.io/ubuntu docker main\ > /etc/apt/sources.list.d/docker.list"
+		3. aptitude install lxc-docker
+		4. sudo gpasswd -a ${USER} docker
+		5. pip install docker-compose
+		6. Logout and log back in, to refresh your groups
 
 The install
 -----------
