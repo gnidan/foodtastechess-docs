@@ -17,7 +17,7 @@ cryptography==0.6.1
 docutils==0.12
 gitdb==0.6.4
 html5lib==0.999
-httplib2==0.9.1
+httplib2==0.18.0
 livereload==2.4.0
 ndg-httpsclient==0.3.2
 pathtools==0.1.2
