@@ -16,7 +16,7 @@ colorama==0.3.2
 cryptography==0.6.1
 docutils==0.12
 gitdb==0.6.4
-html5lib==0.999
+html5lib==0.999999999
 httplib2==0.9.1
 livereload==2.4.0
 ndg-httpsclient==0.3.2
