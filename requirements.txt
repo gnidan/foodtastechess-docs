@@ -9,7 +9,7 @@ alabaster==0.7.6
 argh==0.26.1
 argparse==1.2.1
 backports.ssl-match-hostname==3.4.0.2
-certifi==2015.04.28
+certifi==2022.12.7
 cffi==0.8.6
 chardet==2.3.0
 colorama==0.3.2
